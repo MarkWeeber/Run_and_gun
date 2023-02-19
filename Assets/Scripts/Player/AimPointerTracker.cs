@@ -8,6 +8,7 @@ namespace Run_n_gun.Space {
         [SerializeField] private LayerMask hitmask = 0;
         [SerializeField] private Transform dummy = null;
         private Vector3 mousePointerPosition = Vector3.zero;
+        public Vector3 MousePointerPosition { get { return mousePointerPosition; } }
         private Camera mainCamera = null;
         private Ray ray;
         private RaycastHit hitInfo;

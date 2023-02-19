@@ -8,6 +8,7 @@ namespace Run_n_gun.Space {
         [SerializeField] private PlayerInput playerInput= null;
         [SerializeField] private PlayerMovement playerMovement = null;
         [SerializeField] private IsGroundedControl isGroundedControl = null;
+        [SerializeField] private AimPointerTracker aimPointerTracker = null;
         private void Awake()
         {
             playerInput = GetComponent<PlayerInput>();
