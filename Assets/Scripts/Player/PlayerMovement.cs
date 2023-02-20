@@ -9,12 +9,13 @@ namespace Run_n_gun.Space
         [SerializeField] private AnimationCurve moveCurve = null;
         [SerializeField] private float jumpForce = 200f;
         [SerializeField] private float maxMoveSpeed = 250f;
-        private float moveSpeed = 0f;
+        private float moveSpeedRatio = 0f;
         private float moveDirection = 1f;
         private bool jumping = false;
         private Rigidbody rigidBody;
         private IsGroundedControl isGroundedControl = null;
-
+        public float HorizontalVelocity { get { return transform.InverseTransformVector(rigidBody.velocity).x; } }
+        public float VecrticalVelocity { get { return rigidBody.velocity.y; } }
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
@@ -24,15 +25,19 @@ namespace Run_n_gun.Space
         {
             if (isGroundedControl.IsGrounded)
             {
-                if(direction < 0)
+                if(direction < -0.01f )
                 {
                     moveDirection = -1f;
                 }
-                else
+                else if (direction > 0.01f)
                 {
                     moveDirection = 1f;
                 }
-                moveSpeed = moveCurve.Evaluate(Mathf.Abs(direction)) * moveDirection;   
+                else
+                {
+                    moveDirection = 0f;
+                }
+                moveSpeedRatio = moveCurve.Evaluate(Mathf.Abs(direction)) * moveDirection;   
             }
         }
 
@@ -47,10 +52,10 @@ namespace Run_n_gun.Space
 
         private void FixedUpdate()
         {
-            if(moveSpeed > 0.01f || moveSpeed < -0.01f)
+            if(moveSpeedRatio > 0.01f || moveSpeedRatio < -0.01f)
             {
-                rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeed * Time.deltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
-                moveSpeed = 0f;
+                rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.deltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
+                moveSpeedRatio = 0f;
             }
             if (jumping)
             {
