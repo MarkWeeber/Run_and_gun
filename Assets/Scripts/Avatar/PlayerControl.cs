@@ -12,6 +12,7 @@ namespace Run_n_gun.Space {
         [SerializeField] private PlayerAnimatorControl playerAnimatorControl = null;
         [SerializeField] private Transform aimTarget = null;
         [SerializeField] private FlipFaceControl flipFaceControl = null;
+        [SerializeField] private RecoilControl recoilControl = null;
         private void Awake()
         {
             playerInput = GetComponent<PlayerInput>();
@@ -19,11 +20,13 @@ namespace Run_n_gun.Space {
             flipFaceControl = GetComponent<FlipFaceControl>();
             isGroundedControl = GetComponentInChildren<IsGroundedControl>();
             playerAnimatorControl = GetComponentInChildren<PlayerAnimatorControl>();
+            recoilControl = GetComponent<RecoilControl>();
         }
         private void Start()
         {
             playerInput.Activated = true;
             playerInput.PlayerMovement = playerMovement;
+            playerInput.RecoilControl = recoilControl;
             flipFaceControl.AimTarget = aimTarget;
             flipFaceControl.ParentTransform = this.transform;
             playerMovement.IsGroundedControl = isGroundedControl;

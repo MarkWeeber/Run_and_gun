@@ -5,72 +5,48 @@ namespace Run_n_gun.Space
 {
     public class RecoilControl : MonoBehaviour
     {
-        [SerializeField] private float returnRate = 2f;
-        [SerializeField] private float recoilRate = 5f;
-        [SerializeField] private float backRecoilPerShot = 0.1f;
-        [SerializeField] private float upRecoilPerShot = 0.1f;
-        [SerializeField] private float recoilSpeed = 1f;
-        [SerializeField] private float maxBackDistance = 0.05f;
-        [SerializeField] private float maxRecoilWeightRate = 1f;
-        [SerializeField] private Transform weaponTransform = null;
-        [SerializeField] private Transform holderTransform = null;
-        [SerializeField] private Transform recoilPointTransform = null;
-        [SerializeField] private MultiAimConstraint rightHandAimConstraint = null;
-        private Vector3 holderOrigin = Vector3.zero;
-        private Vector3 holderToWeaponRotation = Vector3.zero;
-        private float currentBackRecoilDistance = 0f;
-        private float currentRecoilWeightRate = 0f;
-        private float targetBackRecoilDistance = 0f;
-        private float targetRecoilWeightRate = 0f;
-        private float distanceToBackRecoil = 0f;
-        private float distanceToRecoilWeightRate = 0f;
-        private bool recoilNow = false;
-        private bool recoilReached = false;
+        [SerializeField] private MultiAimConstraint rightHandMultiAimConstraint = null;
+        [SerializeField] private float lerpRate = 25f;
+        [SerializeField] private float returnRate = 40f;
+        [SerializeField] private float recoilUpRate = 5f;
+        [SerializeField] private float randomHorizontalRSwayRate = 0.5f;
+        [SerializeField] private float maxUpRecoil = 10f;
+        [SerializeField] private float maxHorizontalRecoil = 5f;
+        private float maxRecoilOffset = 0f;
+        private float actualDifference = 0f;
+        private Vector3 targetOffset = Vector3.zero;
+        private Vector3 initialOffset = Vector3.zero;
+        private bool recoilIsActive = false;
 
         private void Start()
         {
-            holderOrigin = holderTransform.localPosition;
-            holderToWeaponRotation = weaponTransform.position - holderTransform.position;
+            initialOffset = rightHandMultiAimConstraint.data.offset;
+            maxRecoilOffset = initialOffset.z + maxUpRecoil;
         }
 
         private void Update()
         {
-            // making recoil shot
-            if (recoilNow)
+            if(recoilIsActive)
             {
-                if(!recoilReached)
+                actualDifference = Vector3.Distance(targetOffset, rightHandMultiAimConstraint.data.offset);
+                rightHandMultiAimConstraint.data.offset = Vector3.Lerp(rightHandMultiAimConstraint.data.offset, targetOffset, lerpRate * Time.deltaTime);
+                targetOffset = Vector3.MoveTowards(targetOffset, initialOffset, returnRate * Time.deltaTime);
+                if(actualDifference < 0.001f)
                 {
-                    distanceToBackRecoil = targetBackRecoilDistance - currentBackRecoilDistance;
-                    distanceToRecoilWeightRate = targetRecoilWeightRate - currentRecoilWeightRate;
-                    if (distanceToBackRecoil <= 0 || distanceToRecoilWeightRate <= 0)
-                    {
-                        recoilReached = true;
-                    }
-                    else
-                    {
-                        currentBackRecoilDistance += backRecoilPerShot * Time.deltaTime;
-                        currentRecoilWeightRate += upRecoilPerShot * Time.deltaTime;
-                    }
-                }
-                else
-                {
-                    currentBackRecoilDistance += backRecoilPerShot * Time.deltaTime;
-                    currentRecoilWeightRate += upRecoilPerShot * Time.deltaTime;
-                    if (currentBackRecoilDistance <= 0 || currentRecoilWeightRate <= 0)
-                    {
-
-                    }
+                    rightHandMultiAimConstraint.data.offset = initialOffset;
+                    recoilIsActive = false;
                 }
             }
         }
 
-        public void Recoil()
+        public void CallRecoil()
         {
-            recoilNow = true;
-            targetBackRecoilDistance = Mathf.Clamp(targetBackRecoilDistance * (1 + recoilRate), 0, maxBackDistance);
-            targetRecoilWeightRate = Mathf.Clamp(targetRecoilWeightRate * (1 + recoilRate), 0, maxRecoilWeightRate);
-            recoilReached = false;
-
+            targetOffset = new Vector3(
+                    Mathf.Clamp(targetOffset.x + Random.Range(targetOffset.x - randomHorizontalRSwayRate, targetOffset.x + randomHorizontalRSwayRate),
+                        initialOffset.x - maxHorizontalRecoil, initialOffset.x + maxHorizontalRecoil),
+                    targetOffset.y,
+                    Mathf.Clamp(targetOffset.z + recoilUpRate, initialOffset.z, maxRecoilOffset));
+            recoilIsActive = true;
         }
     }
 }
