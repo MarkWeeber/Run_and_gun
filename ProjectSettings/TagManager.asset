@@ -14,8 +14,8 @@ TagManager:
   - Object
   - Obstacle
   - AimCanvas
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 
