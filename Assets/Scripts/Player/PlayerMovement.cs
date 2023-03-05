@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Run_n_gun.Space
 {
@@ -54,12 +55,12 @@ namespace Run_n_gun.Space
         {
             if(moveSpeedRatio > 0.01f || moveSpeedRatio < -0.01f)
             {
-                rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.deltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
+                rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
                 moveSpeedRatio = 0f;
             }
             if (jumping)
             {
-                rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce * Time.deltaTime, rigidBody.velocity.z);
+                rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce * Time.fixedDeltaTime, rigidBody.velocity.z);
                 jumping = false;
             }
         }
