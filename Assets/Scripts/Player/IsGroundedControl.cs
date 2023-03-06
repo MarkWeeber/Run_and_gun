@@ -14,9 +14,20 @@ namespace Run_n_gun.Space
             sphereCollider = GetComponent<SphereCollider>();
         }
 
-        private void FixedUpdate()
+        private void OnTriggerEnter(Collider other)
         {
-            isGrounded = Physics.OverlapSphere(this.transform.position, sphereCollider.radius, groundedMask).Length > 0;
+            if((groundedMask.value & (1 << other.transform.gameObject.layer)) > 0)
+            {
+                isGrounded = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if ((groundedMask.value & (1 << other.transform.gameObject.layer)) > 0)
+            {
+                isGrounded = false;
+            }
         }
     }
 }
