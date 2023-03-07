@@ -32,12 +32,12 @@ namespace Run_n_gun.Space
                 xDifference = aimTarget.position.x - parentTransform.position.x;
                 if (xDifference < -0.01f && !lookLeft)
                 {
-                    parentTransform.eulerAngles = new Vector3(parentTransform.rotation.x, 180, parentTransform.rotation.z);
+                    parentTransform.Rotate(0, 180, 0);
                     lookLeft = true;
                 }
                 else if (xDifference > 0.01f && lookLeft)
                 {
-                    parentTransform.eulerAngles = new Vector3(parentTransform.rotation.x, 0, parentTransform.rotation.z);
+                    parentTransform.Rotate(0, 180, 0);
                     lookLeft = false;
                 }
             }

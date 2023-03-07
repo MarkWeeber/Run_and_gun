@@ -6,22 +6,18 @@ namespace Run_n_gun.Space
 {
     public class EnemySpotter : MonoBehaviour
     {
+        public Transform dummy = null;
         [SerializeField] private LayerMask targetMask = 0;
         [SerializeField] private LayerMask obstructionMask = 0;
         private bool targetIsSpotted = false;
-        private Transform targetObject = null;
+        public bool TargetIsSpotted { get { return targetIsSpotted; } set { targetIsSpotted = value; } }
+        private Transform targetTransform = null;
+        public Transform TargetTransform { get { return targetTransform; } set { targetTransform = value; } }
         private Vector3 lastKnownPosition = Vector3.zero;
+        public Vector3 LastKnownPosition { get { return lastKnownPosition; } }
         private Ray ray;
         private Vector3 directionToTarget;
         private float distanceToTarget;
-
-        private void Update()
-        {
-            if(targetIsSpotted)
-            {
-
-            }
-        }
 
         private void OnTriggerStay(Collider other)
         {
@@ -32,24 +28,36 @@ namespace Run_n_gun.Space
                 Debug.DrawRay(transform.position, directionToTarget);
                 directionToTarget = directionToTarget.normalized;
                 ray = new Ray(transform.position, directionToTarget);
-                targetObject = other.transform;
+                targetTransform = other.transform;
                 if (!Physics.Raycast(ray, distanceToTarget, obstructionMask)) // check if no obstructions are seen
                 {
                     targetIsSpotted = true;
                 }
-                else
+                else if(targetIsSpotted) // target was seen before and now some obstructions appear
                 {
                     targetIsSpotted = false;
-                    lastKnownPosition = targetObject.position;
+                    lastKnownPosition = targetTransform.position;
+                    if(dummy != null)
+                    {
+                        dummy.position = lastKnownPosition;
+                    }
                 }
             }   
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if ((targetMask.value & (1 << other.transform.gameObject.layer)) > 0)
+            if ((targetMask.value & (1 << other.transform.gameObject.layer)) > 0) // target left vision
             {
-                targetIsSpotted = false;
+                if(targetIsSpotted) // target was seen before leaving vision
+                {
+                    targetIsSpotted = false;
+                    lastKnownPosition = targetTransform.position;
+                    if (dummy != null)
+                    {
+                        dummy.position = lastKnownPosition;
+                    }
+                }
             }
         }   
     }

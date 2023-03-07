@@ -4,14 +4,14 @@ namespace Run_n_gun.Space
 {
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private float moveSpeed = 100f;
+        [SerializeField] private float moveSpeed = 50f;
         private Rigidbody _rigidbody = null;
         public Rigidbody Rigidbody { get { return _rigidbody; } set { _rigidbody = value; } }
 
         private int moveDirection = 0;
         private bool stopCalled = false;
 
-        public void Moving(int movingDirection)
+        public void Moving(int movingDirection = 1)
         {
             moveDirection = movingDirection; 
         }
@@ -26,7 +26,7 @@ namespace Run_n_gun.Space
         {
             if(moveDirection != 0)
             {
-                _rigidbody.velocity = new Vector3(moveSpeed * Time.fixedDeltaTime, _rigidbody.velocity.y, _rigidbody.velocity.z);
+                _rigidbody.velocity = new Vector3(moveSpeed * transform.forward.x * moveDirection * Time.fixedDeltaTime, _rigidbody.velocity.y, _rigidbody.velocity.z);
             }
             else if(stopCalled)
             {

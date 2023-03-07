@@ -11,7 +11,38 @@ namespace Run_n_gun.Space
 
         private void Update()
         {
-            animator.SetFloat("MoveSpeed", Mathf.Abs(Mathf.Round(_rigidbody.velocity.x * 100f) / 100f) );
+            animator.SetFloat("MoveSpeed", Mathf.Abs(Mathf.Round(_rigidbody.velocity.x * 100f) / 100f));
+        }
+
+        public void AnimateAttack()
+        {
+            animator.SetBool("Attacking", true);
+        }
+
+        public void StopAnimateAttack()
+        {
+            animator.SetBool("Attacking", false);
+        }
+
+        public void AnimateIdle()
+        {
+            animator.SetBool("Idle2", false);
+            animator.SetBool("Attacking", false);
+        }
+
+        public void AnimateIdle2()
+        {
+            animator.SetBool("Idle2", true);
+        }
+
+        public void StopAnimateIdle2()
+        {
+            animator.SetBool("Idle2", false);
+        }
+
+        public void AnimateDeath()
+        {
+            animator.SetTrigger("Die");
         }
     }
 }
