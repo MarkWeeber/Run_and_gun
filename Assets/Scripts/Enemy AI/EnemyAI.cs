@@ -44,7 +44,7 @@ namespace Run_n_gun.Space
             }
             else if (lostTimer > 0.01f)
             {
-                distanceToTarget = Vector3.Distance(transform.position, enemySpotter.LastKnownPosition);
+                distanceToTarget = Mathf.Abs(transform.position.x - enemySpotter.LastKnownPosition.x);
                 if (distanceToTarget > distanceToInteract) // move towards last know position
                 {
                     MoveTowards(enemySpotter.LastKnownPosition);
@@ -80,10 +80,13 @@ namespace Run_n_gun.Space
         private void ReturnToOriginalPost()
         {
             // animate Idle when reached original post, else make move
-            distanceToOriginalPost = Vector3.Distance(originalPosition, parentTransform.position);
+            distanceToOriginalPost = Mathf.Abs(originalPosition.x - parentTransform.position.x);
             if (distanceToOriginalPost < distanceToInteract)
             {
-                enemyAnimator.AnimateIdle2();
+                // stop movement
+                enemyMovement.StopMoving();
+                // animate original idle
+                enemyAnimator.AnimateIdle();
             }
             else
             {

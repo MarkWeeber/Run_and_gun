@@ -6236,7 +6236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31668695c110b847991e1b7dec15063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 40
 --- !u!114 &919132147630263706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6268,7 +6268,7 @@ MonoBehaviour:
   parentTransform: {fileID: 0}
   enemyAnimator: {fileID: 0}
   lostTime: 5
-  distanceToInteract: 0.5
+  distanceToInteract: 1
 --- !u!1 &919132149196953444
 GameObject:
   m_ObjectHideFlags: 0
