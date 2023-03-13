@@ -39,7 +39,7 @@ namespace Run_n_gun.Space
             StartingHealthPoints = healthPoints;
             GameManager.PlayerStartingHealthPoints = StartingHealthPoints;
             // testing death event
-            InvokeRepeating(nameof(PlayDead),1.5f, 1f);
+            //InvokeRepeating(nameof(PlayDead),1.5f, 1f);
         }
 
         public void AddHealthPoints(float addHealthPoints)
