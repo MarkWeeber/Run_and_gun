@@ -13,6 +13,16 @@ namespace Run_n_gun.Space
 
         private float horizontalInput = 0f;
 
+        private void Awake()
+        {
+            GameManager.OnPlayerDeath += OnPlayerDeath;
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.OnPlayerDeath -= OnPlayerDeath;
+        }
+
         private void Update()
         {
             if (activated)
@@ -39,6 +49,11 @@ namespace Run_n_gun.Space
             {
                 horizontalInput = 0f;
             }
+        }
+
+        private void OnPlayerDeath()
+        {
+            activated = false;
         }
     }
 }

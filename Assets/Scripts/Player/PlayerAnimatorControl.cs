@@ -11,9 +11,19 @@ namespace Run_n_gun.Space
 
         private Animator animator = null;
 
+        private void Awake()
+        {
+            GameManager.OnPlayerDeath += OnPlayerDeath;
+        }
+
         private void Start()
         {
             animator = GetComponent<Animator>();
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.OnPlayerDeath += OnPlayerDeath;
         }
 
         private void Update()
@@ -21,6 +31,11 @@ namespace Run_n_gun.Space
             animator.SetFloat("MoveSpeed", Mathf.Round(playerMovement.HorizontalVelocity * 100f) / 100f);
             animator.SetFloat("VerticalSpeed", Mathf.Round(playerMovement.VecrticalVelocity * 100f) / 100f);
             animator.SetBool("Grounded", isGroundedControl.IsGrounded);
+        }
+
+        private void OnPlayerDeath()
+        {
+            animator.SetTrigger("Die");
         }
     }
 }
