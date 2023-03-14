@@ -11,10 +11,16 @@ namespace Run_n_gun.Space
 
         private float xDifference = 0f;
         private bool lookLeft = false;
+        private bool active = true;
+        private void Awake()
+        {
+            GameManager.OnGameStateChanged += OnGameStateChanged;
+        }
 
         private void Start()
         {
-            if(parentTransform != null && aimTarget != null)
+            parentTransform = this.transform;
+            if (aimTarget != null)
             {
                 xDifference = aimTarget.position.x - parentTransform.position.x;
                 if (xDifference < 0)
@@ -22,12 +28,17 @@ namespace Run_n_gun.Space
                     lookLeft = true;
                 }
             }
-            
+            active = true;
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
         private void Update()
         {
-            if (parentTransform != null && aimTarget != null)
+            if (active && aimTarget != null)
             {
                 xDifference = aimTarget.position.x - parentTransform.position.x;
                 if (xDifference < -0.01f && !lookLeft)
@@ -41,6 +52,50 @@ namespace Run_n_gun.Space
                     lookLeft = false;
                 }
             }
+        }
+        private void OnGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.OnMainMenu:
+
+                    break;
+                case GameState.InGamePaused:
+                    PauseFlipFace();
+                    break;
+                case GameState.InGameActive:
+                    ResumeFlipFace();
+                    break;
+                case GameState.PlayerDead:
+                    DisableFlipFace();
+                    break;
+                case GameState.LevelVictory:
+                    DisableFlipFace();
+                    break;
+                case GameState.LevelGameOver:
+                    DisableFlipFace();
+                    break;
+                default: break;
+            }
+        }
+
+        private void PauseFlipFace()
+        {
+            enabled = false;
+        }
+
+        private void ResumeFlipFace()
+        {
+            enabled = true;
+        }
+        private void DisableFlipFace()
+        {
+            active = false;
+        }
+
+        private void EnableFlipFace()
+        {
+            active = true;
         }
     }
 }

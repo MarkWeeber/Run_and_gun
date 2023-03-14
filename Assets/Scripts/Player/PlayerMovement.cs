@@ -6,6 +6,7 @@ namespace Run_n_gun.Space
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private IsGroundedControl isGroundedControl = null;
         public IsGroundedControl IsGroundedControl { get { return isGroundedControl; } set { isGroundedControl = value; } }
         [SerializeField] private AnimationCurve moveCurve = null;
         [SerializeField] private float jumpForce = 200f;
@@ -14,12 +15,18 @@ namespace Run_n_gun.Space
         private float moveDirection = 1f;
         private bool jumping = false;
         private Rigidbody rigidBody;
-        private IsGroundedControl isGroundedControl = null;
         public float HorizontalVelocity { get { return transform.InverseTransformVector(rigidBody.velocity).x; } }
         public float VecrticalVelocity { get { return rigidBody.velocity.y; } }
+        
+        private void Awake()
+        {
+            GameManager.playerMovement = this;
+        }
+
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
+            isGroundedControl = GameManager.isGroundedControl;
         }
 
         public void Move(float direction)

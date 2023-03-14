@@ -13,17 +13,19 @@ namespace Run_n_gun.Space
 
         private void Awake()
         {
-            GameManager.OnPlayerDeath += OnPlayerDeath;
+            GameManager.OnGameStateChanged += OnGameStateChanged;
         }
 
         private void Start()
         {
             animator = GetComponent<Animator>();
+            playerMovement = GameManager.playerMovement;
+            isGroundedControl = GameManager.isGroundedControl;
         }
 
         private void OnDestroy()
         {
-            GameManager.OnPlayerDeath += OnPlayerDeath;
+            GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
         private void Update()
@@ -33,9 +35,35 @@ namespace Run_n_gun.Space
             animator.SetBool("Grounded", isGroundedControl.IsGrounded);
         }
 
-        private void OnPlayerDeath()
+        private void PlayDeathAnimation()
         {
             animator.SetTrigger("Die");
+        }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.OnMainMenu:
+
+                    break;
+                case GameState.InGamePaused:
+                    
+                    break;
+                case GameState.InGameActive:
+                    
+                    break;
+                case GameState.PlayerDead:
+                    PlayDeathAnimation();
+                    break;
+                case GameState.LevelVictory:
+
+                    break;
+                case GameState.LevelGameOver:
+
+                    break;
+                default: break;
+            }
         }
     }
 }

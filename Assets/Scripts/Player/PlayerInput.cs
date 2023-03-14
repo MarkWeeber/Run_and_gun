@@ -15,12 +15,19 @@ namespace Run_n_gun.Space
 
         private void Awake()
         {
-            GameManager.OnPlayerDeath += OnPlayerDeath;
+            GameManager.OnGameStateChanged += OnGameStateChanged;
+        }
+
+        private void Start()
+        {
+            activated = true;
+            playerMovement = GameManager.playerMovement;
+            recoilControl = GameManager.recoilControl;
         }
 
         private void OnDestroy()
         {
-            GameManager.OnPlayerDeath -= OnPlayerDeath;
+            GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
         private void Update()
@@ -51,9 +58,36 @@ namespace Run_n_gun.Space
             }
         }
 
-        private void OnPlayerDeath()
+        private void DisableInput()
         {
             activated = false;
         }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.OnMainMenu:
+
+                    break;
+                case GameState.InGamePaused:
+
+                    break;
+                case GameState.InGameActive:
+
+                    break;
+                case GameState.PlayerDead:
+                    DisableInput();
+                    break;
+                case GameState.LevelVictory:
+
+                    break;
+                case GameState.LevelGameOver:
+
+                    break;
+                default: break;
+            }
+        }
+
     }
 }

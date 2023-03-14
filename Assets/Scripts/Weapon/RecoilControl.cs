@@ -18,6 +18,11 @@ namespace Run_n_gun.Space
         private Vector3 initialOffset = Vector3.zero;
         private bool recoilIsActive = false;
 
+        private void Awake()
+        {
+            GameManager.recoilControl = this;
+        }
+
         private void Start()
         {
             initialOffset = rightHandMultiAimConstraint.data.offset;

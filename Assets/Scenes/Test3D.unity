@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16992387, g: 0.18433535, b: 0.20785478, a: 1}
+  m_IndirectSpecularColor: {r: 0.16992795, g: 0.18434548, b: 0.20784968, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -153,28 +153,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 88
   m_CollisionDetection: 0
---- !u!114 &42707515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149196953444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce56b6abef7675d49a4d0c83e4453296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInput: {fileID: 0}
-  playerMovement: {fileID: 0}
-  isGroundedControl: {fileID: 0}
-  playerAnimatorControl: {fileID: 0}
-  aimTarget: {fileID: 776202148}
-  flipFaceControl: {fileID: 0}
-  recoilControl: {fileID: 0}
-  playerHealth: {fileID: 0}
-  rigBuilder: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!114 &42707516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59650833b27a7ec4a8f0a410caa682bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGroundedControl: {fileID: 0}
   moveCurve:
     serializedVersion: 2
     m_Curve:
@@ -2477,7 +2456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1ca9f48a927154fbbf3be91bad1545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: 0
+  state: 0
 --- !u!1 &1093819779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,7 +2520,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41778
+  m_Name: pb_Mesh145648
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3652,24 +3631,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   dummy: {fileID: 776202148}
---- !u!1 &1516315063 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2636299145757731678, guid: de1dae4e8acab794282083d3e660adc4, type: 3}
-  m_PrefabInstance: {fileID: 1906045885}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1516315067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516315063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2776d98511ad0b4aa911ae038fce455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
 --- !u!4 &1569055843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 933973819692555774, guid: 83cb34ed79c88d340a0edfa85b8c53c1, type: 3}
@@ -4900,7 +4861,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2636299144685982474, guid: de1dae4e8acab794282083d3e660adc4, type: 3}
       propertyPath: m_Name
-      value: InGameMenuUI
+      value: InGameMenu_UI
       objectReference: {fileID: 0}
     - target: {fileID: 2636299144685982475, guid: de1dae4e8acab794282083d3e660adc4, type: 3}
       propertyPath: m_RootOrder
@@ -6470,7 +6431,6 @@ GameObject:
   - component: {fileID: 543450653657583070}
   - component: {fileID: 42707514}
   - component: {fileID: 42707513}
-  - component: {fileID: 42707515}
   - component: {fileID: 42707516}
   - component: {fileID: 42707517}
   - component: {fileID: 919132149196953445}
@@ -6495,7 +6455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ed57c7e00634646ad24325bea01247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimTarget: {fileID: 0}
+  aimTarget: {fileID: 776202148}
   parentTransform: {fileID: 0}
 --- !u!114 &919132149196953446
 MonoBehaviour:
@@ -6530,10 +6490,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 100
   StartingHealthPoints: 0
-  animator: {fileID: 0}
-  rigBuilder: {fileID: 0}
-  playerInput: {fileID: 0}
-  flipFaceControl: {fileID: 0}
 --- !u!1 &919132149332587449
 GameObject:
   m_ObjectHideFlags: 0
@@ -9978,6 +9934,7 @@ GameObject:
   - component: {fileID: 177278700}
   - component: {fileID: 8879528566623549855}
   - component: {fileID: 8879528566623549854}
+  - component: {fileID: 8879528566623549856}
   m_Layer: 0
   m_Name: Armature
   m_TagString: Untagged
@@ -11317,6 +11274,19 @@ MonoBehaviour:
   - m_Rig: {fileID: 848683888}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &8879528566623549856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036213049643037655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70aa9e47b105d994bb5135278f18f23d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigBuilder: {fileID: 0}
 --- !u!4 &8879528568279746481
 Transform:
   m_ObjectHideFlags: 0

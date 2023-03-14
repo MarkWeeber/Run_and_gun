@@ -8,29 +8,18 @@ namespace Run_n_gun.Space
         [SerializeField] private float healthPoints = 100f;
         public float HealthPoints { get { return healthPoints; } set { OnHealthPointsAdded(value); } }
         public float StartingHealthPoints;
-        [SerializeField] private Animator animator = null;
-        public Animator Animator { get { return animator; } set { animator = value; } }
-
-        [SerializeField] private RigBuilder rigBuilder = null;
-        public RigBuilder RigBuilder { get { return rigBuilder; } set { rigBuilder = value; } }
-
-        [SerializeField] private PlayerInput playerInput = null;
-        public PlayerInput PlayerInput { get { return playerInput; } set { playerInput = value; } }
-        [SerializeField] private FlipFaceControl flipFaceControl = null;
-        public FlipFaceControl FlipFaceControl { get { return flipFaceControl; } set { flipFaceControl = value; } }
-
         private bool isDead = false;
         public bool IsDead { get { return isDead; } set { isDead = value; } }
 
         private void Awake()
         {
-            GameManager.OnPlayerDeath += OnPlayerDeath;
+            GameManager.OnGameStateChanged += OnGameStateChanged;
             GameManager.OnPlayerHealthPointsAdded += OnHealthPointsAdded;
         }
 
         private void OnDestroy()
         {
-            GameManager.OnPlayerDeath -= OnPlayerDeath;
+            GameManager.OnGameStateChanged -= OnGameStateChanged;
             GameManager.OnPlayerHealthPointsAdded += OnHealthPointsAdded;
         }
 
@@ -39,7 +28,7 @@ namespace Run_n_gun.Space
             StartingHealthPoints = healthPoints;
             GameManager.PlayerStartingHealthPoints = StartingHealthPoints;
             // testing death event
-            //InvokeRepeating(nameof(PlayDead),1.5f, 1f);
+            //InvokeRepeating(nameof(TestPlayeDeath),1.5f, 1f);
         }
 
         public void AddHealthPoints(float addHealthPoints)
@@ -54,23 +43,44 @@ namespace Run_n_gun.Space
                 healthPoints += addedHealthPoints;
                 if (healthPoints <= 0)
                 {
-                    GameManager.CallPlayerDeath();
+                    GameManager.UpdateGameState(GameState.PlayerDead);
                 }
             }
         }
 
         private void OnPlayerDeath()
         {
-            flipFaceControl.enabled = false;// disable flip face control
-            foreach (var item in rigBuilder.layers) // disable all rig builder layers to animate death freely
-            {
-                item.active = false;
-            }
             isDead = true;  // mark as dead in current class
         }
-        private void PlayDead()
+        private void TestPlayeDeath()
         {
             AddHealthPoints(-25);
+        }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.OnMainMenu:
+
+                    break;
+                case GameState.InGamePaused:
+
+                    break;
+                case GameState.InGameActive:
+
+                    break;
+                case GameState.PlayerDead:
+                    OnPlayerDeath();
+                    break;
+                case GameState.LevelVictory:
+
+                    break;
+                case GameState.LevelGameOver:
+
+                    break;
+                default: break;
+            }
         }
     }
 }

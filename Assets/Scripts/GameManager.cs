@@ -3,61 +3,66 @@ using UnityEngine;
 
 namespace Run_n_gun.Space
 {
-    
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
 
-        public GameState State;
+        public static GameState State;
+        public GameState state;
 
         public static float PlayerStartingHealthPoints;
 
         public static event Action<GameState> OnGameStateChanged;
-        public static event Action OnPlayerDeath;
 
         public static event Action<float> OnPlayerHealthPointsAdded;
+        // necessary components for player related scripts
+        public static PlayerMovement playerMovement;
+        public static IsGroundedControl isGroundedControl;
+        public static Transform aimTarget;
+        public static RecoilControl recoilControl;
 
         private void Awake()
         {
             Instance = this;
         }
 
-        public void UpdateGameState(GameState newState)
+        public static void UpdateGameState(GameState newState)
         {
             State = newState;
             switch (State)
             {
                 case GameState.OnMainMenu:
 
-                break;
+                    break;
                 case GameState.InGamePaused:
-                    
-                break;
+
+                    break;
                 case GameState.InGameActive:
-                    
-                break;
+
+                    break;
                 case GameState.PlayerDead:
 
-                break;
+                    break;
                 case GameState.LevelVictory:
-                    
-                break;
+
+                    break;
                 case GameState.LevelGameOver:
 
-                break;
+                    break;
                 default: break;
             }
             OnGameStateChanged?.Invoke(newState);
         }
 
-        public static void CallPlayerDeath()
-        {
-            OnPlayerDeath?.Invoke();
-        }
-
         public static void PlayerHealthPointsAdded(float value)
         {
             OnPlayerHealthPointsAdded?.Invoke(value);
+        }
+
+        private void Update ()
+        {
+            state = State;
         }
     }
 }
