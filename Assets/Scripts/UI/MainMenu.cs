@@ -21,15 +21,6 @@ namespace Run_n_gun.Space
             GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
-        public void Update()
-        {
-            // track Escape button press
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                // TO DO
-            }
-        }
-
         public void PauseGameButtonPress()
         {
             GameManager.UpdateGameState(GameState.InGamePaused);
