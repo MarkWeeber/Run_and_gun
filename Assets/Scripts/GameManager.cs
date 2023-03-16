@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Run_n_gun.Space
 {
-
     public class GameManager : MonoBehaviour
     {
+        // singleton
         public static GameManager Instance;
-
         public static GameState State;
-        public GameState state;
-
+        // state to see on inspector
+        [SerializeField] private GameState state;
         public static float PlayerStartingHealthPoints;
-
+        // events
         public static event Action<GameState> OnGameStateChanged;
-
         public static event Action<float> OnPlayerHealthPointsAdded;
+        public static event Action<float> OnPlayerHealthPointsSubtracted;
+        
         // necessary components for player related scripts
         public static PlayerMovement playerMovement;
         public static IsGroundedControl isGroundedControl;
@@ -58,6 +58,11 @@ namespace Run_n_gun.Space
         public static void PlayerHealthPointsAdded(float value)
         {
             OnPlayerHealthPointsAdded?.Invoke(value);
+        }
+
+        public static void PlayerHealthPointsSubtracted(float value)
+        {
+            OnPlayerHealthPointsSubtracted?.Invoke(value);
         }
 
         private void Update ()

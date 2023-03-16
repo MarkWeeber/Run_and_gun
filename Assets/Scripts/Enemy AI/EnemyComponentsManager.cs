@@ -6,7 +6,7 @@ namespace Run_n_gun.Space
     [RequireComponent(typeof(EnemyMovement))]
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyAI))]
-    public class EnemyControl : MonoBehaviour
+    public class EnemyComponentsManager : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rigidbody = null;
         [SerializeField] private EnemyMovement enemyMovement = null;

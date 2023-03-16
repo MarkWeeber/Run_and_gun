@@ -15,12 +15,14 @@ namespace Run_n_gun.Space
         {
             GameManager.OnGameStateChanged += OnGameStateChanged;
             GameManager.OnPlayerHealthPointsAdded += OnHealthPointsAdded;
+            GameManager.OnPlayerHealthPointsSubtracted += OnHealthPointsAdded;
         }
 
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= OnGameStateChanged;
-            GameManager.OnPlayerHealthPointsAdded += OnHealthPointsAdded;
+            GameManager.OnPlayerHealthPointsAdded -= OnHealthPointsAdded;
+            GameManager.OnPlayerHealthPointsSubtracted -= OnHealthPointsAdded;
         }
 
         private void Start()
@@ -41,6 +43,7 @@ namespace Run_n_gun.Space
             if (!isDead)
             {
                 healthPoints += addedHealthPoints;
+                healthPoints = Mathf.Clamp(healthPoints, -StartingHealthPoints ,StartingHealthPoints);
                 if (healthPoints <= 0)
                 {
                     GameManager.UpdateGameState(GameState.PlayerDead);

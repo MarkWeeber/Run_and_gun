@@ -14,4 +14,10 @@ namespace Run_n_gun.Space
         LevelVictory,
         LevelGameOver
     }
+
+    public enum DamagerType
+    {
+        Melee,
+        Projectile
+    }
 }
