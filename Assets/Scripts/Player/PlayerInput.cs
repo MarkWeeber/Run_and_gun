@@ -63,6 +63,11 @@ namespace Run_n_gun.Space
             activated = false;
         }
 
+        private void EnableInput()
+        {
+            activated = true;
+        }
+
         private void OnGameStateChanged(GameState state)
         {
             switch (state)
@@ -71,23 +76,22 @@ namespace Run_n_gun.Space
 
                     break;
                 case GameState.InGamePaused:
-
+                    DisableInput();
                     break;
                 case GameState.InGameActive:
-
+                    EnableInput();
                     break;
                 case GameState.PlayerDead:
                     DisableInput();
                     break;
                 case GameState.LevelVictory:
-
+                    DisableInput();
                     break;
                 case GameState.LevelGameOver:
-
+                    DisableInput();
                     break;
                 default: break;
             }
         }
-
     }
 }

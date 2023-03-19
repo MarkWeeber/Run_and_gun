@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16992795, g: 0.18434548, b: 0.20784968, a: 1}
+  m_IndirectSpecularColor: {r: 0.16992387, g: 0.18433535, b: 0.20785478, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6182,7 +6182,7 @@ MonoBehaviour:
   hitmask:
     serializedVersion: 2
     m_Bits: 256
-  dummy: {fileID: 776202148}
+  AimCrossHairGameObject: {fileID: 776202148}
 --- !u!1 &1533056036
 GameObject:
   m_ObjectHideFlags: 0
@@ -13456,7 +13456,6 @@ GameObject:
   - component: {fileID: 177278700}
   - component: {fileID: 8879528566623549855}
   - component: {fileID: 8879528566623549854}
-  - component: {fileID: 8879528566623549856}
   m_Layer: 0
   m_Name: Armature
   m_TagString: Untagged
@@ -14797,19 +14796,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 848683888}
     m_Active: 1
   m_Effectors: []
---- !u!114 &8879528566623549856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7036213049643037655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70aa9e47b105d994bb5135278f18f23d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigBuilder: {fileID: 0}
 --- !u!4 &8879528568279746481
 Transform:
   m_ObjectHideFlags: 0

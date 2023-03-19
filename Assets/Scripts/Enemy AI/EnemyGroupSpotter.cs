@@ -23,7 +23,6 @@ namespace Run_n_gun.Space
         {
             if (enemySpotter == this.enemySpotter)
             {
-                Debug.Log("CHECK");
                 this.enemySpotter = null;
                 LastKnownPosition = targetTransform.position;
                 this.targetTransform = null;

@@ -6,18 +6,71 @@ namespace Run_n_gun.Space {
     {
         [SerializeField] private CinemachineVirtualCamera cinemachine = null;
         [SerializeField] private LayerMask hitmask = 0;
-        [SerializeField] private Transform dummy = null;
+        [SerializeField] private Transform AimCrossHairGameObject = null;
+        private bool activated = true;
         private Vector3 mousePointerPosition = Vector3.zero;
         public Vector3 MousePointerPosition { get { return mousePointerPosition; } }
         private Camera mainCamera = null;
         private Ray ray;
         private RaycastHit hitInfo;
+
+        private void Awake()
+        {
+            GameManager.OnGameStateChanged += OnGameStateChanged;
+        }
+
         private void Start()
         {
             mainCamera = Camera.main;
         }
 
+        private void OnDestroy()
+        {
+            GameManager.OnGameStateChanged -= OnGameStateChanged;
+        }
+
         private void Update()
+        {
+            TrackMousePointer();
+        }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.OnMainMenu:
+
+                    break;
+                case GameState.InGamePaused:
+                    DisableAimCrossHairUpdater();
+                    break;
+                case GameState.InGameActive:
+                    EnableAimCrossHairUpdater();
+                    break;
+                case GameState.PlayerDead:
+                    DisableAimCrossHairUpdater();
+                    break;
+                case GameState.LevelVictory:
+                    DisableAimCrossHairUpdater();
+                    break;
+                case GameState.LevelGameOver:
+                    DisableAimCrossHairUpdater();
+                    break;
+                default: break;
+            }
+        }
+
+        private void DisableAimCrossHairUpdater()
+        {
+            activated = false;
+        }
+
+        private void EnableAimCrossHairUpdater()
+        {
+            activated = true;
+        }
+
+        private void TrackMousePointer()
         {
             if (cinemachine != null && cinemachine.isActiveAndEnabled)
             {
@@ -25,11 +78,19 @@ namespace Run_n_gun.Space {
                 if (Physics.Raycast(ray, out hitInfo, 99999f, hitmask))
                 {
                     mousePointerPosition = hitInfo.point;
-                    if (dummy != null)
+                    if (AimCrossHairGameObject != null)
                     {
-                        dummy.transform.position = hitInfo.point;
+                        UpdateAimCrossHairPoistion();
                     }
                 }
+            }
+        }
+
+        private void UpdateAimCrossHairPoistion()
+        {
+            if (activated)
+            {
+                AimCrossHairGameObject.transform.position = hitInfo.point;
             }
         }
     }
