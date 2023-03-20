@@ -10,6 +10,9 @@ scopes = {
 	"last_search.8788AF05" = "RecoilContorl"
 	"OpenInspectorPreview.8788AF05" = "0"
 	"currentGroup.8788AF05" = "all"
+	"last_search.8440E7BB" = "shader graph"
+	"OpenInspectorPreview.8440E7BB" = "0"
+	"currentGroup.8440E7BB" = "menu"
 }
 providers = {
 	adb = {
@@ -79,6 +82,7 @@ providers = {
 	}
 }
 recentSearches = [
+	"s"
 ]
 searchItemFavorites = [
 ]
