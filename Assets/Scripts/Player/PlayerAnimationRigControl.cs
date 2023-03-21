@@ -32,7 +32,7 @@ namespace Run_n_gun.Space
 
                     break;
                 case GameState.InGamePaused:
-                    PauseAnimationRigging();
+                    
                     break;
                 case GameState.InGameActive:
                     ResumeAnimationRigging();
