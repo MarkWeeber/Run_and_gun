@@ -38,15 +38,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Animation_Speed: 0.5
+    - _Animation_Speed: 10
     - _Apply_Emission: 0
-    - _Contrast_Factor: 1
+    - _Contrast_Factor: 2
     - _Noise_Scale: 100
     - _QueueControl: 0
     - _QueueOffset: 0
     - _UV_Tilling_Mulitplier: 1
     m_Colors:
-    - _Base_Color: {r: 42.722507, g: 1.0052354, b: 0, a: 1}
+    - _Animation_Vector_Speed: {r: 0.2, g: 0.2, b: 0, a: 0}
+    - _Base_Color: {r: 512, g: 0, b: 0, a: 1}
     - _UV_Offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4494833294358833730
