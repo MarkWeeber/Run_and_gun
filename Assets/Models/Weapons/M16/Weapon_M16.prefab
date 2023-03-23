@@ -155,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 534442450050542329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 933973819692555774}
@@ -303,7 +303,7 @@ Transform:
   m_GameObject: {fileID: 5138158619465621629}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 10, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 431159527}
@@ -335,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6323304271379307250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 1.25, z: 0}
+  m_LocalPosition: {x: -0.218, y: 0.077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -359,9 +359,10 @@ MonoBehaviour:
   maxDistance: 50
   hitMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 1753
   laserBeamDirectionalScaler: {fileID: 2395285461428542581}
   laserDotSprite: {fileID: 4133496153437315368}
+  hitName: 
 --- !u!1 &8223756908143947223
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,11 +483,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8281393557895355681}
-  m_LocalRotation: {x: -0.23296927, y: 0.2029647, z: 0.89055145, w: 0.33383954}
-  m_LocalPosition: {x: -2.837, y: 1.551, z: -0.554}
+  m_LocalRotation: {x: -0.20586881, y: 0.7547942, z: 0.5330561, w: 0.32211027}
+  m_LocalPosition: {x: -0.159, y: 0.013, z: -0.048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 933973819692555774}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -31.135, y: -19.053, z: 144.255}
+  m_LocalEulerAnglesHint: {x: -69.606, y: 130.043, z: 5.373}
