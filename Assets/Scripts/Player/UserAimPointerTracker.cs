@@ -1,9 +1,12 @@
 using UnityEngine;
 using Cinemachine;
 
-namespace Run_n_gun.Space {
+namespace Run_n_gun.Space
+{
     public class UserAimPointerTracker : MonoBehaviour
     {
+        [SerializeField] private float minDistance = 0.5f;
+        [SerializeField] private Transform playerCenter = null;
         [SerializeField] private CinemachineVirtualCamera cinemachine = null;
         [SerializeField] private LayerMask hitmask = 0;
         [SerializeField] private Transform AimCrossHairGameObject = null;
@@ -29,7 +32,7 @@ namespace Run_n_gun.Space {
             GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             TrackMousePointer();
         }
@@ -77,10 +80,13 @@ namespace Run_n_gun.Space {
                 ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hitInfo, 99999f, hitmask))
                 {
-                    mousePointerPosition = hitInfo.point;
-                    if (AimCrossHairGameObject != null)
+                    if (Vector3.Distance(hitInfo.point, playerCenter.transform.position) > minDistance)
                     {
-                        UpdateAimCrossHairPoistion();
+                        mousePointerPosition = hitInfo.point;
+                        if (AimCrossHairGameObject != null)
+                        {
+                            UpdateAimCrossHairPoistion();
+                        }
                     }
                 }
             }
