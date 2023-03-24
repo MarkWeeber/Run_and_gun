@@ -20,4 +20,12 @@ namespace Run_n_gun.Space
         Melee,
         Projectile
     }
+
+    public enum EnemySpotState
+    {
+        NoTarget,
+        TargetIsVisible,
+        AlertedOnTarget,
+        TargetLost
+    }
 }
