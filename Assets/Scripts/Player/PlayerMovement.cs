@@ -11,13 +11,14 @@ namespace Run_n_gun.Space
         [SerializeField] private AnimationCurve moveCurve = null;
         [SerializeField] private float jumpForce = 200f;
         [SerializeField] private float maxMoveSpeed = 250f;
+        [SerializeField] private float maxMidAirMoveSpeed = 10f;
         private float moveSpeedRatio = 0f;
         private float moveDirection = 1f;
         private bool jumping = false;
         private Rigidbody rigidBody;
         public float HorizontalVelocity { get { return transform.InverseTransformVector(rigidBody.velocity).x; } }
         public float VecrticalVelocity { get { return rigidBody.velocity.y; } }
-        
+
         private void Awake()
         {
             GameManager.playerMovement = this;
@@ -31,9 +32,9 @@ namespace Run_n_gun.Space
 
         public void Move(float direction)
         {
-            if (isGroundedControl.IsGrounded)
+            if (isGroundedControl.IsGrounded || true)
             {
-                if(direction < -0.01f )
+                if (direction < -0.01f)
                 {
                     moveDirection = -1f;
                 }
@@ -45,24 +46,37 @@ namespace Run_n_gun.Space
                 {
                     moveDirection = 0f;
                 }
-                moveSpeedRatio = moveCurve.Evaluate(Mathf.Abs(direction)) * moveDirection;   
+                moveSpeedRatio = moveCurve.Evaluate(Mathf.Abs(direction)) * moveDirection;
             }
         }
 
         public void Jump()
         {
-            if(isGroundedControl.IsGrounded)
+            if (isGroundedControl.IsGrounded)
             {
                 jumping = true;
-                
+
             }
         }
 
         private void FixedUpdate()
         {
-            if(moveSpeedRatio > 0.01f || moveSpeedRatio < -0.01f)
+            if (moveSpeedRatio > 0.01f || moveSpeedRatio < -0.01f)
             {
-                rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
+                if (isGroundedControl.IsGrounded)
+                {
+                    rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
+                }
+                else
+                {
+                    rigidBody.velocity = new Vector3(
+                        Mathf.Clamp(
+                            rigidBody.velocity.x + (maxMidAirMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime),
+                                -(maxMidAirMoveSpeed + maxMoveSpeed) * Time.fixedDeltaTime,
+                                (maxMidAirMoveSpeed + maxMoveSpeed) * Time.fixedDeltaTime),
+                            rigidBody.velocity.y,
+                            rigidBody.velocity.z);
+                }
                 moveSpeedRatio = 0f;
             }
             if (jumping)
