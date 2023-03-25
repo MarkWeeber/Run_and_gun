@@ -12,9 +12,14 @@ namespace Run_n_gun.Space
         [SerializeField] private float jumpForce = 200f;
         [SerializeField] private float maxMoveSpeed = 250f;
         [SerializeField] private float maxMidAirMoveSpeed = 10f;
+        [SerializeField] private float jumpForceWhenStuck = 150f;
+        [SerializeField] private float stuckTimeDuration = 2f;
+        private bool active = true;
         private float moveSpeedRatio = 0f;
         private float moveDirection = 1f;
+        private float stuckTimer = 0f;
         private bool jumping = false;
+        private bool stuckJump = false;
         private Rigidbody rigidBody;
         public float HorizontalVelocity { get { return transform.InverseTransformVector(rigidBody.velocity).x; } }
         public float VecrticalVelocity { get { return rigidBody.velocity.y; } }
@@ -22,12 +27,23 @@ namespace Run_n_gun.Space
         private void Awake()
         {
             GameManager.playerMovement = this;
+            GameManager.OnGameStateChanged += OnGameStateChanged;
         }
 
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
             isGroundedControl = GameManager.isGroundedControl;
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.OnGameStateChanged -= OnGameStateChanged;
+        }
+
+        private void Update()
+        {
+            ManageStuck();
         }
 
         public void Move(float direction)
@@ -61,29 +77,96 @@ namespace Run_n_gun.Space
 
         private void FixedUpdate()
         {
-            if (moveSpeedRatio > 0.01f || moveSpeedRatio < -0.01f)
+            if (active)
             {
-                if (isGroundedControl.IsGrounded)
+                if (moveSpeedRatio > 0.01f || moveSpeedRatio < -0.01f)
                 {
-                    rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
+                    if (isGroundedControl.IsGrounded)
+                    {
+                        rigidBody.velocity = new Vector3((maxMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime), rigidBody.velocity.y, rigidBody.velocity.z);
+                    }
+                    else
+                    {
+                        rigidBody.velocity = new Vector3(
+                            Mathf.Clamp(
+                                rigidBody.velocity.x + (maxMidAirMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime),
+                                    -(maxMidAirMoveSpeed + maxMoveSpeed) * Time.fixedDeltaTime,
+                                    (maxMidAirMoveSpeed + maxMoveSpeed) * Time.fixedDeltaTime),
+                                rigidBody.velocity.y,
+                                rigidBody.velocity.z);
+                    }
+                    moveSpeedRatio = 0f;
+                }
+                if (jumping)
+                {
+                    rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce * Time.fixedDeltaTime, rigidBody.velocity.z);
+                    jumping = false;
+                }
+                if (stuckJump)
+                {
+                    rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForceWhenStuck * Time.fixedDeltaTime, rigidBody.velocity.z);
+                    stuckJump = false;
+                }
+            }
+        }
+
+        private void ManageStuck()
+        {
+            if (active)
+            {
+                if (rigidBody.velocity.magnitude < 0.01f && !isGroundedControl.IsGrounded)
+                {
+                    if (stuckTimer < stuckTimeDuration)
+                    {
+                        stuckTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        stuckJump = true;
+                        stuckTimer = 0f;
+                    }
                 }
                 else
                 {
-                    rigidBody.velocity = new Vector3(
-                        Mathf.Clamp(
-                            rigidBody.velocity.x + (maxMidAirMoveSpeed * moveSpeedRatio * Time.fixedDeltaTime),
-                                -(maxMidAirMoveSpeed + maxMoveSpeed) * Time.fixedDeltaTime,
-                                (maxMidAirMoveSpeed + maxMoveSpeed) * Time.fixedDeltaTime),
-                            rigidBody.velocity.y,
-                            rigidBody.velocity.z);
+                    stuckTimer = 0f;
                 }
-                moveSpeedRatio = 0f;
             }
-            if (jumping)
+        }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            switch (state)
             {
-                rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce * Time.fixedDeltaTime, rigidBody.velocity.z);
-                jumping = false;
+                case GameState.OnMainMenu:
+
+                    break;
+                case GameState.InGamePaused:
+
+                    break;
+                case GameState.InGameActive:
+
+                    break;
+                case GameState.PlayerDead:
+                    DisablePlayerMovement();            
+                    break;
+                case GameState.LevelVictory:
+
+                    break;
+                case GameState.LevelGameOver:
+
+                    break;
+                default: break;
             }
+        }
+
+        private void DisablePlayerMovement()
+        {
+            active = false;
+        }
+
+        private void EnablePlayerMovement()
+        {
+            active = false;
         }
     }
 }
