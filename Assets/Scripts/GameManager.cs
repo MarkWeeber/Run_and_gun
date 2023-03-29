@@ -22,6 +22,9 @@ namespace Run_n_gun.Space
         public static Transform aimTarget;
         public static RecoilControl recoilControl;
 
+        // reference to selected enemy
+        public static Transform enemyHealthBarLocationTransform;
+
         private void Awake()
         {
             Instance = this;
