@@ -4,18 +4,15 @@ namespace Run_n_gun.Space
 {
     public class EnemyHealth : MonoBehaviour
     {
-
         [SerializeField] private float startingHealth = 100f;
         [SerializeField] private float currentHealth = 100f;
         [SerializeField] private LayerMask hitDetectFromPlayerLayer = 0;
+        [SerializeField] private LayerMask playerAttackLayer = 0;
         [SerializeField] private Transform heathBarLocationTransform;
+        [SerializeField] private EnemyAIControl enemyAIcontrol;
+        public EnemyAIControl EnemyAIControl { get { return enemyAIcontrol; } set { enemyAIcontrol = value; } }
+
         private void Start()
-        {
-
-        }
-
-
-        private void Update()
         {
 
         }
@@ -24,7 +21,7 @@ namespace Run_n_gun.Space
         {
             if ((hitDetectFromPlayerLayer.value & (1 << other.transform.gameObject.layer)) > 0)
             {
-                GameManager.enemyHealthBarLocationTransform = heathBarLocationTransform;
+                GameManager.Instance.EnemyHealthBar_UI.FollowTarget = heathBarLocationTransform;
             }
         }
 
@@ -32,9 +29,10 @@ namespace Run_n_gun.Space
         {
             if ((hitDetectFromPlayerLayer.value & (1 << other.transform.gameObject.layer)) > 0)
             {
-                if(GameManager.enemyHealthBarLocationTransform == heathBarLocationTransform)
+                GameManager.Instance.EnemyHealthBar_UI.FollowTarget = null;
+                if (GameManager.Instance.EnemyHealthBar_UI.FollowTarget == heathBarLocationTransform)
                 {
-                    GameManager.enemyHealthBarLocationTransform = null;
+                    GameManager.Instance.EnemyHealthBar_UI.FollowTarget = null;
                 }
             }
         }

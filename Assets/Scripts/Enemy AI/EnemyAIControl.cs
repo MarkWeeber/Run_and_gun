@@ -32,13 +32,12 @@ namespace Run_n_gun.Space
             originalPosition = transform.position;
         }
 
-
         private void Update()
         {
-            ManageSpotData(Time.deltaTime);
+            ManageSpotData();
         }
 
-        private void ManageSpotData(float deltaTime)
+        private void ManageSpotData()
         {
             switch (spotter.SpotData.enemySpotState)
             {
@@ -58,6 +57,13 @@ namespace Run_n_gun.Space
             }
         }
 
+        private void DropDead()
+        {
+            enemyMovement.StopMoving();
+            enemyAnimator.StopAnimateAttack();
+            enemyAnimator.AnimateDeath();
+        }
+
         private void ReturnToOriginalPost()
         {
             _distanceToOriginalPost = Mathf.Abs(originalPosition.x - parentTransform.position.x);
@@ -68,6 +74,7 @@ namespace Run_n_gun.Space
             else
             {
                 enemyMovement.StopMoving();
+                enemyAnimator.StopAnimateAttack();
                 enemyAnimator.AnimateIdle();
             }
         }
@@ -98,6 +105,7 @@ namespace Run_n_gun.Space
                 else
                 {
                     enemyMovement.StopMoving();
+                    enemyAnimator.StopAnimateAttack();
                     enemyAnimator.AnimateIdle2();
                 }
             }

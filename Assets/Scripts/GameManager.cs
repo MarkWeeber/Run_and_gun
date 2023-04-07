@@ -23,11 +23,16 @@ namespace Run_n_gun.Space
         public static RecoilControl recoilControl;
 
         // reference to selected enemy
-        public static Transform enemyHealthBarLocationTransform;
+        public EnemyHealthBar_UI EnemyHealthBar_UI;
 
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            EnemyHealthBar_UI = GameObject.FindObjectOfType<EnemyHealthBar_UI>();
         }
 
         public static void UpdateGameState(GameState newState)

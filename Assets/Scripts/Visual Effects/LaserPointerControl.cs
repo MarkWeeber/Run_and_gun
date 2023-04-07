@@ -11,11 +11,13 @@ namespace Run_n_gun.Space
         [SerializeField] private string hitName = "";
         private Ray ray;
         private RaycastHit hitInfo;
+        private SpriteRenderer spriteRenderer;
 
         private void Start()
         {
             ray = new Ray(transform.position, Vector3.left);
-            laserDotSprite.gameObject.SetActive(false);
+            spriteRenderer = laserDotSprite.GetComponent<SpriteRenderer>();
+            spriteRenderer.enabled = false;
         }
 
 
@@ -40,7 +42,7 @@ namespace Run_n_gun.Space
 
         private void RayHasHit()
         {
-            laserDotSprite.gameObject.SetActive(true);
+            spriteRenderer.enabled = true;
             laserDotSprite.transform.position = hitInfo.point;
             hitName = hitInfo.transform.name;
             laserBeamDirectionalScaler.transform.localScale = new Vector3(hitInfo.distance,
@@ -51,7 +53,7 @@ namespace Run_n_gun.Space
         private void RayHasNoHit()
         {
             laserDotSprite.transform.position = this.transform.position;
-            laserDotSprite.gameObject.SetActive(false);
+            spriteRenderer.enabled = false;
             laserBeamDirectionalScaler.transform.localScale = new Vector3(maxDistance,
                                                                             laserBeamDirectionalScaler.transform.localScale.y,
                                                                             laserBeamDirectionalScaler.transform.localScale.z);
