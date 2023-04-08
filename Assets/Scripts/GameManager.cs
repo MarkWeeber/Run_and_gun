@@ -15,12 +15,13 @@ namespace Run_n_gun.Space
         public static event Action<GameState> OnGameStateChanged;
         public static event Action<float> OnPlayerHealthPointsAdded;
         public static event Action<float> OnPlayerHealthPointsSubtracted;
-        
+
         // necessary components for player related scripts
         public static PlayerMovement playerMovement;
         public static IsGroundedControl isGroundedControl;
         public static Transform aimTarget;
         public static RecoilControl recoilControl;
+        public static Weapon weapon;
 
         // reference to selected enemy
         public EnemyHealthBar_UI EnemyHealthBar_UI;
@@ -73,7 +74,7 @@ namespace Run_n_gun.Space
             OnPlayerHealthPointsSubtracted?.Invoke(value);
         }
 
-        private void Update ()
+        private void Update()
         {
             state = State;
         }

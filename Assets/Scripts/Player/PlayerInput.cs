@@ -6,11 +6,9 @@ namespace Run_n_gun.Space
         public bool Activated { get { return activated; } set { activated = value; } }
         private bool activated = false;
         [SerializeField] private float deadZone = 0.01f;
-        public PlayerMovement PlayerMovement { get { return playerMovement; } set { playerMovement = value; } }
         private PlayerMovement playerMovement = null;
-        public RecoilControl RecoilControl { get { return recoilControl; } set { recoilControl = value; } }
         private RecoilControl recoilControl = null;
-
+        private Weapon weapon;
         private float horizontalInput = 0f;
 
         private void Awake()
@@ -23,6 +21,7 @@ namespace Run_n_gun.Space
             activated = true;
             playerMovement = GameManager.playerMovement;
             recoilControl = GameManager.recoilControl;
+            weapon = GameManager.weapon;
         }
 
         private void OnDestroy()
@@ -47,9 +46,9 @@ namespace Run_n_gun.Space
                     playerMovement.Jump();
                 }
                 // tracking fire button press
-                if(Input.GetButtonDown(GlobalStringVars.FIRE_1))
+                if (Input.GetButtonDown(GlobalStringVars.FIRE_1))
                 {
-                    recoilControl.CallRecoil();
+                    weapon.TryShoot();
                 }
             }
             else

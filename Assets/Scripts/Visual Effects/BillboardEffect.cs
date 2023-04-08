@@ -5,11 +5,24 @@ namespace Run_n_gun.Space
     public class BillboardEffect : MonoBehaviour
     {
         private Camera mainCam;
+        public bool applyOnlyAtStart = true;
         private void Start()
         {
             mainCam = Camera.main;
+            if (applyOnlyAtStart)
+            {
+                ApplyBillBoardEffect();
+            }
         }
         private void LateUpdate()
+        {
+            if (!applyOnlyAtStart)
+            {
+                ApplyBillBoardEffect();
+            }
+        }
+
+        private void ApplyBillBoardEffect()
         {
             // rotate as camera rotates
             transform.rotation = mainCam.transform.rotation;
