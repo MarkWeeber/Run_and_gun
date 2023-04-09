@@ -710,10 +710,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3108192318812847257}
+  - component: {fileID: 2335491197094569518}
   - component: {fileID: 2335491197094569505}
   - component: {fileID: 2335491197094569504}
   - component: {fileID: 2335491197094569519}
-  - component: {fileID: 2335491197094569518}
   - component: {fileID: 2335491197094569516}
   - component: {fileID: 2335491197094569514}
   m_Layer: 10
@@ -744,6 +744,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &2335491197094569518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335491197094569507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d4b977d78daa42a3cca0f541cb510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &2335491197094569505
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -787,25 +799,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 40
---- !u!114 &2335491197094569518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2335491197094569507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3d4b977d78daa42a3cca0f541cb510, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
-  enemyMovement: {fileID: 0}
-  animator: {fileID: 0}
-  enemyAnimator: {fileID: 0}
-  targetSpotter: {fileID: 0}
-  enemyAIControl: {fileID: 0}
-  enemyHealth: {fileID: 0}
 --- !u!114 &2335491197094569516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,8 +811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f467b05a010ed448cc34eba7ab30d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  _rigidbody: {fileID: 0}
 --- !u!114 &2335491197094569514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,10 +823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9cb6cdaa45cbe4cb5fb08feda5fa33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spotter: {fileID: 0}
-  enemyMovement: {fileID: 0}
-  parentTransform: {fileID: 0}
-  enemyAnimator: {fileID: 0}
   lostDuration: 10
   distanceToInteract: 1
   originalPosition: {x: 0, y: 0, z: 0}
@@ -1295,12 +1282,6 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 511
-  groupTargetSpotter: {fileID: 0}
-  spotData:
-    enemySpotState: 0
-    targetTransform: {fileID: 0}
-    lastKnownPosition: {x: 0, y: 0, z: 0}
-    spotTime: 0
 --- !u!1 &3217889070056102321
 GameObject:
   m_ObjectHideFlags: 0
@@ -2801,9 +2782,8 @@ MonoBehaviour:
     m_Bits: 8192
   playerAttackLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
   heathBarLocationTransform: {fileID: 1615430517579106416}
-  enemyAIcontrol: {fileID: 0}
 --- !u!1 &7333336638047333621
 GameObject:
   m_ObjectHideFlags: 0

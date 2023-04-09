@@ -7,10 +7,13 @@ namespace Run_n_gun.Space
     {
         [SerializeField] private Image healthImage;
         [SerializeField] private Transform followTarget;
+        private Canvas canvas;
         public Transform FollowTarget { get { return followTarget; } set { if (value == null) { DeactivateSelf(); } else { ActivateSelf(); } followTarget = value; } }
-        [SerializeField] private Vector2 healthBarValues = Vector2.one;
-        public Vector3 HeathBarValues { set { healthBarValues = value; SetHealthBarValues(value); } get { return healthBarValues; } }
-        [SerializeField] private Canvas canvas;
+        private float maxFill;
+        public float MaxFill { get { return maxFill; } set { maxFill = value; UpdateFill(); } }
+        private float currentFill;
+        public float CurrentFill { get { return currentFill; } set { currentFill = value; } }
+        
         private void Start()
         {
             canvas = GetComponent<Canvas>();
@@ -40,9 +43,9 @@ namespace Run_n_gun.Space
             canvas.enabled = true;
         }
 
-        private void SetHealthBarValues(Vector2 values)
+        private void UpdateFill()
         {
-            healthImage.fillAmount = values.x / values.y;
+            healthImage.fillAmount = Mathf.Clamp(currentFill, 0, maxFill )/ maxFill;
         }
     }
 }

@@ -4,32 +4,39 @@ namespace Run_n_gun.Space
 {
     public class EnemyAIControl : MonoBehaviour
     {
-        [SerializeField]
-        private TargetSpotter spotter;
-        public TargetSpotter Spotter { get { return spotter; } set { spotter = value; } }
-        [SerializeField]
-        private EnemyMovement enemyMovement = null;
-        public EnemyMovement EnemyMovement { get { return enemyMovement; } set { enemyMovement = value; } }
-        [SerializeField]
-        private Transform parentTransform = null;
-        public Transform ParentTransform { get { return parentTransform; } set { parentTransform = value; } }
-        [SerializeField]
-        private EnemyAnimator enemyAnimator = null;
-        public EnemyAnimator EnemyAnimator { get { return enemyAnimator; } set { enemyAnimator = value; } }
-
         [SerializeField] private float lostDuration = 30f;
         [SerializeField] private float distanceToInteract = 1f;
         [SerializeField] private Vector3 originalPosition;
 
+        private EnemyComponentsManager enemyComponentsManager;
+        private TargetSpotter targetSpotter = null;
+        private EnemyMovement enemyMovement = null;
+        private EnemyAnimator enemyAnimator = null;
         private float _distanceToTarget;
         private float _distanceToLastKnownPosition;
         private float _distanceToOriginalPost;
         private float _xDifference;
         private bool _lookLeft = true;
+        private EnemySpotState _enemySpotState;
+
+        private void Awake()
+        {
+            enemyComponentsManager = GetComponent<EnemyComponentsManager>();
+            enemyComponentsManager.OnSpotStateChanged += OnSpotDataUpdated;
+        }
 
         private void Start()
         {
+            enemyMovement = enemyComponentsManager.EnemyMovement;
+            enemyAnimator = enemyComponentsManager.EnemyAnimator;
+            targetSpotter = enemyComponentsManager.TargetSpotter;
             originalPosition = transform.position;
+            CheckLookDirectionAtStart();
+        }
+
+        private void OnDestroy()
+        {
+            enemyComponentsManager.OnSpotStateChanged -= OnSpotDataUpdated;
         }
 
         private void Update()
@@ -37,9 +44,31 @@ namespace Run_n_gun.Space
             ManageSpotData();
         }
 
+        private void CheckLookDirectionAtStart()
+        {
+            if (this.transform.localRotation.eulerAngles.y == 90)
+            {
+                _lookLeft = false;
+            }
+            else if (this.transform.localRotation.eulerAngles.y == 270)
+            {
+                _lookLeft = true;
+            }
+            else
+            {
+                this.transform.Rotate(0, 270, 0);
+                _lookLeft = true;
+            }
+        }
+
+        private void OnSpotDataUpdated(EnemySpotState enemySpotState)
+        {
+            _enemySpotState = enemySpotState;
+        }
+
         private void ManageSpotData()
         {
-            switch (spotter.SpotData.enemySpotState)
+            switch (_enemySpotState)
             {
                 case EnemySpotState.NoTarget:
                     ReturnToOriginalPost();
@@ -66,7 +95,7 @@ namespace Run_n_gun.Space
 
         private void ReturnToOriginalPost()
         {
-            _distanceToOriginalPost = Mathf.Abs(originalPosition.x - parentTransform.position.x);
+            _distanceToOriginalPost = Mathf.Abs(originalPosition.x - this.transform.position.x);
             if (_distanceToOriginalPost > distanceToInteract)
             {
                 MoveTowards(originalPosition);
@@ -81,10 +110,10 @@ namespace Run_n_gun.Space
 
         private void ActionOnTarget()
         {
-            _distanceToTarget = Mathf.Abs(transform.position.x - spotter.SpotData.targetTransform.position.x);
+            _distanceToTarget = Mathf.Abs(transform.position.x - targetSpotter.SpotData.targetTransform.position.x);
             if (_distanceToTarget > distanceToInteract)
             {
-                MoveTowards(spotter.SpotData.targetTransform.position);
+                MoveTowards(targetSpotter.SpotData.targetTransform.position);
             }
             else
             {
@@ -95,12 +124,12 @@ namespace Run_n_gun.Space
 
         private void GoToTargetsLastKnowPosition()
         {
-            if (spotter.SpotData.spotTime + lostDuration > Time.time)
+            if (targetSpotter.SpotData.spotTime + lostDuration > Time.time)
             {
-                _distanceToLastKnownPosition = Mathf.Abs(transform.position.x - spotter.SpotData.lastKnownPosition.x);
+                _distanceToLastKnownPosition = Mathf.Abs(transform.position.x - targetSpotter.SpotData.lastKnownPosition.x);
                 if (_distanceToLastKnownPosition > distanceToInteract)
                 {
-                    MoveTowards(spotter.SpotData.lastKnownPosition);
+                    MoveTowards(targetSpotter.SpotData.lastKnownPosition);
                 }
                 else
                 {
@@ -111,21 +140,21 @@ namespace Run_n_gun.Space
             }
             else
             {
-                spotter.ForgetTheTarget();
+                targetSpotter.ForgetTheTarget();
             }
         }
 
         private void MoveTowards(Vector3 destination)
         {
-            _xDifference = destination.x - parentTransform.position.x;
+            _xDifference = destination.x - this.transform.position.x;
             if (_xDifference > 0.01f && _lookLeft)
             {
-                parentTransform.Rotate(0, 180, 0);
+                this.transform.Rotate(0, 180, 0);
                 _lookLeft = false;
             }
             else if (_xDifference < -0.01f && !_lookLeft)
             {
-                parentTransform.Rotate(0, 180, 0);
+                this.transform.Rotate(0, 180, 0);
                 _lookLeft = true;
             }
             enemyAnimator.StopAnimateAttack();

@@ -22,19 +22,27 @@ namespace Run_n_gun.Space
     {
         [SerializeField] private LayerMask targetMask = 0;
         [SerializeField] private LayerMask obstructionMask = 0;
-        [SerializeField] private GroupTargetSpotter groupTargetSpotter = null;
-        [SerializeField] private TargetSpotData spotData;
+        
+        private EnemyComponentsManager enemyComponentsManager;
+        private GroupTargetSpotter groupTargetSpotter = null;
+        private TargetSpotData spotData;
         public TargetSpotData SpotData { get { return spotData; } set { spotData = value; } }
         private Ray ray;
         private Vector3 directionToTarget;
         private float distanceToTarget;
 
+        private void Awake()
+        {
+            enemyComponentsManager = GetComponentInParent<EnemyComponentsManager>();
+        }
+
         private void Start()
         {
+            enemyComponentsManager.TargetSpotter = this;
             groupTargetSpotter = GetComponentInParent<GroupTargetSpotter>();
             if(groupTargetSpotter != null)
             {
-                groupTargetSpotter.SpottersList.Add(this);
+                groupTargetSpotter.spottersList.Add(this);
             }
         }
 
@@ -47,7 +55,7 @@ namespace Run_n_gun.Space
         {
             if(groupTargetSpotter != null)
             {
-                groupTargetSpotter.SpottersList.Remove(this);
+                groupTargetSpotter.spottersList.Remove(this);
             }
         }
 
@@ -90,6 +98,7 @@ namespace Run_n_gun.Space
             spotData.targetTransform = targetTransform;
             spotData.spotTime = Time.time;
             PushToGroupSpotter();
+            enemyComponentsManager.UpdateSpotState(EnemySpotState.TargetIsVisible);
         }
 
         private void LooseTheTarget()
@@ -98,6 +107,7 @@ namespace Run_n_gun.Space
             spotData.lastKnownPosition = spotData.targetTransform.position;
             spotData.targetTransform = null;
             PushToGroupSpotter();
+            enemyComponentsManager.UpdateSpotState(EnemySpotState.TargetLost);
         }
 
         public void AlertOnTheTarget(Transform targetTransform)
@@ -107,6 +117,7 @@ namespace Run_n_gun.Space
                 spotData.enemySpotState = EnemySpotState.AlertedOnTarget;
                 spotData.lastKnownPosition = targetTransform.position;
                 PushToGroupSpotter();
+                enemyComponentsManager.UpdateSpotState(EnemySpotState.AlertedOnTarget);
             }
         }
 
@@ -117,6 +128,7 @@ namespace Run_n_gun.Space
                 spotData.enemySpotState = EnemySpotState.NoTarget;
                 spotData.targetTransform = null;
                 PushToGroupSpotter();
+                enemyComponentsManager.UpdateSpotState(EnemySpotState.NoTarget);
             }
         }
 
@@ -133,6 +145,7 @@ namespace Run_n_gun.Space
             if (groupTargetSpotter != null)
             {
                 spotData = groupTargetSpotter.SpotData;
+                enemyComponentsManager.UpdateSpotState(spotData.enemySpotState);
             }
         }
 

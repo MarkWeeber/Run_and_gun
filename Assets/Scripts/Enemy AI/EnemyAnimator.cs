@@ -4,10 +4,21 @@ namespace Run_n_gun.Space
 {
     public class EnemyAnimator : MonoBehaviour
     {
-        [SerializeField] private Animator animator = null;
-        public Animator Animator { get { return animator; } set { animator = value; } }
-        [SerializeField] private Rigidbody _rigidbody = null;
-        public Rigidbody Rigidbody { get { return _rigidbody; } set { _rigidbody = value; } }
+        private Animator animator = null;
+        private Rigidbody _rigidbody = null;
+        private EnemyComponentsManager enemyComponentsManager;
+
+        private void Awake()
+        {
+            enemyComponentsManager = GetComponent<EnemyComponentsManager>();
+            enemyComponentsManager.EnemyAnimator = this;
+        }
+
+        private void Start()
+        {
+            _rigidbody = enemyComponentsManager.Rigidbody;
+            animator = enemyComponentsManager.Animator;
+        }
 
         private void Update()
         {

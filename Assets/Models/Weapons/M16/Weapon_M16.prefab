@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144091337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.92, y: 2.02, z: -0}
+  m_LocalPosition: {x: -1.4288334, y: 1.6500002, z: 0.007999928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534442450050542329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.49116668, y: -0.37000003, z: 0.007999917}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516470076652781282}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.65, y: 0.11, z: 0}
+  m_LocalPosition: {x: -0.15883353, y: -0.26000005, z: 0.007999708}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -293,9 +293,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 7058839993082212358}
-  recoilControl: {fileID: 0}
   ammoCapacity: 15
   bulletPrefab: {fileID: 2151528923792191995, guid: 19b44484e9b77ec4aa452b486d3d1a3d, type: 3}
+  infiniteAmmo: 1
+  bulletSpeed: 15
 --- !u!1 &4878670817062949463
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4878670817062949463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.49116668, y: -0.37000003, z: 0.007999917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -384,7 +385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6323304271379307250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.218, y: 0.077, z: 0}
+  m_LocalPosition: {x: 0.27316672, y: -0.293, z: 0.007999835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -408,7 +409,7 @@ MonoBehaviour:
   maxDistance: 50
   hitMask:
     serializedVersion: 2
-    m_Bits: 1753
+    m_Bits: 1752
   laserBeamDirectionalScaler: {fileID: 2395285461428542581}
   laserDotSprite: {fileID: 4133496153437315368}
   hitName: 
@@ -510,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e7531ff56f8e44882626e10f38a0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applyOnlyAtStart: 1
+  applyOnlyAtStart: 0
 --- !u!135 &7071447629713367356
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -548,7 +549,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8281393557895355681}
   m_LocalRotation: {x: -0.20586881, y: 0.7547942, z: 0.5330561, w: 0.32211027}
-  m_LocalPosition: {x: -0.159, y: 0.013, z: -0.048}
+  m_LocalPosition: {x: 0.3321668, y: -0.357, z: -0.040000234}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

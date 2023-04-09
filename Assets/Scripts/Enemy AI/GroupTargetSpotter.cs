@@ -5,11 +5,10 @@ namespace Run_n_gun.Space
 {
     public class GroupTargetSpotter : MonoBehaviour
     {
-        [SerializeField] private TargetSpotData spotData;
         [SerializeField] private Transform spotNotifier = null;
+        private TargetSpotData spotData;
         public TargetSpotData SpotData { get { return spotData; } set { UpdateSpotData(value); } }
-        [SerializeField] private List<TargetSpotter> spottersList;
-        public List<TargetSpotter> SpottersList { get { return spottersList; } set { spottersList = value; } }
+        public List<TargetSpotter> spottersList;
         private void UpdateSpotData(TargetSpotData spotData)
         {
             switch (spotData.enemySpotState)

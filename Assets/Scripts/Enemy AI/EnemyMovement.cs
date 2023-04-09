@@ -6,14 +6,24 @@ namespace Run_n_gun.Space
     {
         [SerializeField] private float moveSpeed = 50f;
         private Rigidbody _rigidbody = null;
-        public Rigidbody Rigidbody { get { return _rigidbody; } set { _rigidbody = value; } }
-
+        private EnemyComponentsManager enemyComponentsManager;
         private int moveDirection = 0;
         private bool stopCalled = false;
 
+        private void Awake()
+        {
+            enemyComponentsManager = GetComponent<EnemyComponentsManager>();
+            enemyComponentsManager.EnemyMovement = this;
+        }
+
+        private void Start()
+        {
+            _rigidbody = enemyComponentsManager.Rigidbody;
+        }
+
         public void Moving(int movingDirection = 1)
         {
-            moveDirection = movingDirection; 
+            moveDirection = movingDirection;
         }
 
         public void StopMoving()
