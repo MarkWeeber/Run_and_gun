@@ -21,8 +21,8 @@ namespace Run_n_gun.Space
         public EnemyAnimator EnemyAnimator { get { return enemyAnimator; } set { enemyAnimator = value; } }
 
         public event Action<EnemySpotState> OnSpotStateChanged;
-        public event Action<float, float> OnHealthPointsChanged;
         public event Action<float> OnTakeDamage;
+        public event Action OnDeath;
 
         private void Awake()
         {
@@ -30,26 +30,20 @@ namespace Run_n_gun.Space
             animator = GetComponentInChildren<Animator>();
         }
 
-        private void Start()
-        {
-
-        }
-
         public void UpdateSpotState(EnemySpotState enemySpotState)
         {
             OnSpotStateChanged?.Invoke(enemySpotState);
         }
-
-        public void UpdateHealthPoints(float value1, float value2)
-        {
-            GameManager.Instance.EnemyHealthBar_UI.MaxFill = value2;
-            GameManager.Instance.EnemyHealthBar_UI.CurrentFill = value1;
-            OnHealthPointsChanged?.Invoke(value1, value2);
-        }
-
+        
         public void TakeDamage(float damageValue)
         {
             OnTakeDamage?.Invoke(damageValue);
+        }
+
+        public void Die()
+        {
+            OnDeath?.Invoke();
+            this.gameObject.layer = LayerMask.NameToLayer(GlobalStringVars.PLAYER_PHASE_THROUGH_LAYER);
         }
     }
 }

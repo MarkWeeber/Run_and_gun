@@ -22,7 +22,7 @@ namespace Run_n_gun.Space
     {
         [SerializeField] private LayerMask targetMask = 0;
         [SerializeField] private LayerMask obstructionMask = 0;
-        
+
         private EnemyComponentsManager enemyComponentsManager;
         private GroupTargetSpotter groupTargetSpotter = null;
         private TargetSpotData spotData;
@@ -30,52 +30,61 @@ namespace Run_n_gun.Space
         private Ray ray;
         private Vector3 directionToTarget;
         private float distanceToTarget;
+        private bool alive = true;
 
         private void Awake()
         {
             enemyComponentsManager = GetComponentInParent<EnemyComponentsManager>();
+            enemyComponentsManager.OnDeath += OnDeath;
+            enemyComponentsManager.TargetSpotter = this;
         }
 
         private void Start()
         {
-            enemyComponentsManager.TargetSpotter = this;
             groupTargetSpotter = GetComponentInParent<GroupTargetSpotter>();
-            if(groupTargetSpotter != null)
+            if (groupTargetSpotter != null)
             {
                 groupTargetSpotter.spottersList.Add(this);
             }
         }
 
-        private void Update()
-        {
-            RetrieveFromGroupSpotter();
-        }
-
         private void OnDestroy()
         {
-            if(groupTargetSpotter != null)
+            enemyComponentsManager.OnDeath -= OnDeath;
+            if (groupTargetSpotter != null)
             {
                 groupTargetSpotter.spottersList.Remove(this);
             }
         }
 
+        private void Update()
+        {
+            if (alive)
+            {
+                RetrieveFromGroupSpotter();
+            }
+        }
+
         private void OnTriggerStay(Collider other)
         {
-            if ((targetMask.value & (1 << other.transform.gameObject.layer)) > 0)
+            if (alive)
             {
-                directionToTarget = other.transform.position - transform.position;
-                distanceToTarget = directionToTarget.magnitude;
-                directionToTarget = directionToTarget.normalized;
-                ray = new Ray(transform.position, directionToTarget);
-                if (!Physics.Raycast(ray, distanceToTarget, obstructionMask))
+                if ((targetMask.value & (1 << other.transform.gameObject.layer)) > 0)
                 {
-                    SpotTheTarget(other.transform);
-                }
-                else
-                {
-                    if (spotData.enemySpotState == EnemySpotState.TargetIsVisible)
+                    directionToTarget = other.transform.position - transform.position;
+                    distanceToTarget = directionToTarget.magnitude;
+                    directionToTarget = directionToTarget.normalized;
+                    ray = new Ray(transform.position, directionToTarget);
+                    if (!Physics.Raycast(ray, distanceToTarget, obstructionMask))
                     {
-                        LooseTheTarget();
+                        SpotTheTarget(other.transform);
+                    }
+                    else
+                    {
+                        if (spotData.enemySpotState == EnemySpotState.TargetIsVisible)
+                        {
+                            LooseTheTarget();
+                        }
                     }
                 }
             }
@@ -83,11 +92,14 @@ namespace Run_n_gun.Space
 
         private void OnTriggerExit(Collider other)
         {
-            if ((targetMask.value & (1 << other.transform.gameObject.layer)) > 0)
+            if (alive)
             {
-                if (spotData.enemySpotState == EnemySpotState.TargetIsVisible)
+                if ((targetMask.value & (1 << other.transform.gameObject.layer)) > 0)
                 {
-                    LooseTheTarget();
+                    if (spotData.enemySpotState == EnemySpotState.TargetIsVisible)
+                    {
+                        LooseTheTarget();
+                    }
                 }
             }
         }
@@ -155,6 +167,15 @@ namespace Run_n_gun.Space
             {
                 groupTargetSpotter.SpotData = spotData;
             }
+        }
+
+        private void OnDeath()
+        {
+            if (spotData.enemySpotState != EnemySpotState.NoTarget)
+            {
+                LooseTheTarget();
+            }
+            alive = false;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Run_n_gun.Space
         public const string VERTICAL_AXIS = "Vertical";
         public const string JUMP_BUTTON = "Jump";
         public const string PLAYER_LAYER = "Player";
+        public const string PLAYER_PHASE_THROUGH_LAYER = "PlayerPhaseThrough";
         #endregion
     }
 }

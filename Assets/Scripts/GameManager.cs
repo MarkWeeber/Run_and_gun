@@ -23,6 +23,9 @@ namespace Run_n_gun.Space
         public static RecoilControl recoilControl;
         public static Weapon weapon;
 
+        // necessary components for other classes
+        public static Transform playerTransform;
+
         // reference to selected enemy
         public EnemyHealthBar_UI EnemyHealthBar_UI;
 

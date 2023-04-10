@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5555
+  m_VersionIndex: 5639
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1530,7 +1530,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836288661916706474}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2727,7 +2727,7 @@ GameObject:
   - component: {fileID: 6061615816938693361}
   - component: {fileID: 6818922997363839753}
   - component: {fileID: 7133577094829920920}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: EnemyHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2775,7 +2775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27906782f836766458f8da5adc77879f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  maxHealth: 100
   currentHealth: 100
   hitDetectFromPlayerLayer:
     serializedVersion: 2

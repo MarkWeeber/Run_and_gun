@@ -18,11 +18,13 @@ namespace Run_n_gun.Space
         private float _xDifference;
         private bool _lookLeft = true;
         private EnemySpotState _enemySpotState;
+        private bool alive = true;
 
         private void Awake()
         {
             enemyComponentsManager = GetComponent<EnemyComponentsManager>();
             enemyComponentsManager.OnSpotStateChanged += OnSpotDataUpdated;
+            enemyComponentsManager.OnDeath += OnDeath;
         }
 
         private void Start()
@@ -37,11 +39,15 @@ namespace Run_n_gun.Space
         private void OnDestroy()
         {
             enemyComponentsManager.OnSpotStateChanged -= OnSpotDataUpdated;
+            enemyComponentsManager.OnDeath -= OnDeath;
         }
 
         private void Update()
         {
-            ManageSpotData();
+            if(alive)
+            {
+                ManageSpotData();
+            }
         }
 
         private void CheckLookDirectionAtStart()
@@ -86,11 +92,10 @@ namespace Run_n_gun.Space
             }
         }
 
-        private void DropDead()
+        private void OnDeath()
         {
+            alive = false;
             enemyMovement.StopMoving();
-            enemyAnimator.StopAnimateAttack();
-            enemyAnimator.AnimateDeath();
         }
 
         private void ReturnToOriginalPost()
@@ -118,6 +123,7 @@ namespace Run_n_gun.Space
             else
             {
                 enemyMovement.StopMoving();
+                enemyAnimator.StopAnimateIdle2();
                 enemyAnimator.AnimateAttack();
             }
         }

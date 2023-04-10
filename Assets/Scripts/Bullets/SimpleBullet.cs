@@ -88,11 +88,7 @@ namespace Run_n_gun.Space
             {
                 Debug.Log("CHECK");
             }
-            else
-            {
-                DealDamage(damagable);
-            }
-            
+            DealDamage(damagable);
         }
 
         public void DealDamage(IDamagable damagable)

@@ -17,4 +17,12 @@ namespace Run_n_gun.Space
     {
         void TakeDamage(float damageValue);
     }
+
+    public interface IObjectWithHealthBar
+    {
+        bool Alive { get; }
+        Vector3 HealthBarPosition { get; }
+        float CurrentHealth { get; }
+        float MaxHealth { get; }
+    }
 }

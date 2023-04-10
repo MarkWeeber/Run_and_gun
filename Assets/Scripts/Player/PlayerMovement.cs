@@ -28,6 +28,7 @@ namespace Run_n_gun.Space
         {
             GameManager.playerMovement = this;
             GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.playerTransform = this.transform;
         }
 
         private void Start()

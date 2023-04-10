@@ -12,12 +12,18 @@ namespace Run_n_gun.Space
         {
             enemyComponentsManager = GetComponent<EnemyComponentsManager>();
             enemyComponentsManager.EnemyAnimator = this;
+            enemyComponentsManager.OnDeath += AnimateDeath;
         }
 
         private void Start()
         {
             _rigidbody = enemyComponentsManager.Rigidbody;
             animator = enemyComponentsManager.Animator;
+        }
+
+        private void OnDestroy()
+        {
+            enemyComponentsManager.OnDeath -= AnimateDeath;
         }
 
         private void Update()

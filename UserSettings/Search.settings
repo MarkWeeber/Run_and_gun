@@ -7,9 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.8788AF05" = "RecoilContorl"
+	"last_search.8788AF05" = "UserAim"
 	"OpenInspectorPreview.8788AF05" = "0"
-	"currentGroup.8788AF05" = "all"
+	"currentGroup.8788AF05" = "scene"
 	"last_search.8440E7BB" = "shader graph"
 	"OpenInspectorPreview.8440E7BB" = "0"
 	"currentGroup.8440E7BB" = "menu"
@@ -82,6 +82,7 @@ providers = {
 	}
 }
 recentSearches = [
+	"UserAim"
 	"s"
 ]
 searchItemFavorites = [

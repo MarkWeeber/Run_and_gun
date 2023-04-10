@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1286786283030055017}
   - component: {fileID: 2781714285256222364}
   m_Layer: 14
-  m_Name: BulletWithTracer
+  m_Name: BulletWithTracer_OneShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 200
-  damageValue: 15
+  damageValue: 1000
   disappearTimeInSeccods: 1
 --- !u!54 &2781714285256222364
 Rigidbody:
