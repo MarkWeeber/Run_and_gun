@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class PlayerAnimationRigControl : MonoBehaviour
     {
@@ -12,6 +12,8 @@ namespace Run_n_gun.Space
         private void Awake()
         {
             GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.OnPlayerWeaponReloadStart += PauseAnimationRigging;
+            GameManager.OnPlayerWeaponReloadEnd += ResumeAnimationRigging;
         }
 
         private void Start()
@@ -22,6 +24,8 @@ namespace Run_n_gun.Space
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= OnGameStateChanged;
+            GameManager.OnPlayerWeaponReloadStart -= PauseAnimationRigging;
+            GameManager.OnPlayerWeaponReloadEnd -= ResumeAnimationRigging;
         }
 
         private void OnGameStateChanged(GameState state)

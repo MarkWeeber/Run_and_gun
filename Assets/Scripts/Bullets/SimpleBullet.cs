@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     [RequireComponent(typeof(SphereCollider))]
     public class SimpleBullet : MonoBehaviour, IDamager
@@ -84,10 +84,6 @@ namespace Run_n_gun.Space
         private void TryDealDamage(Collider other)
         {
             damagable = other.GetComponent<IDamagable>();
-            // if(damagable == null)
-            // {
-            //     Debug.Log("CHECK");
-            // }
             DealDamage(damagable);
         }
 

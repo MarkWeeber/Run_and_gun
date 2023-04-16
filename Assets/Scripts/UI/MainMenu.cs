@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class MainMenu : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class Weapon : MonoBehaviour
     {
@@ -10,12 +10,15 @@ namespace Run_n_gun.Space
         [SerializeField] private bool infiniteAmmo = false;
         [SerializeField] private float bulletSpeed = 300f;
         [SerializeField] private float fireRateInSeconds = 0.2f;
-
+        [SerializeField] private float reloadSpeed = 1f;
         private RecoilControl recoilControl;
         private Transform[] ammo;
         private SimpleBullet[] bulletRefernce;
         private int ammoLeft;
+        private int ammoIndex;
         private float fireRateTimer = 0f;
+        private float reloadTimer = 0f;
+        private bool reloading = false;
 
         private void Start()
         {
@@ -31,12 +34,21 @@ namespace Run_n_gun.Space
             {
                 fireRateTimer -= Time.deltaTime;
             }
+            if (reloadTimer > 0)
+            {
+                reloadTimer -= Time.deltaTime;
+                if(reloadTimer < 0)
+                {
+                    ReloadWeaponEnd();
+                }
+            }
         }
 
         private void InstantiateAmmoCapacity()
         {
             ammo = new Transform[ammoCapacity];
             bulletRefernce = new SimpleBullet[ammoCapacity];
+            ammoIndex = 0;
             for (int i = 0; i < ammoCapacity; i++)
             {
                 ammo[i] = Instantiate(bulletPrefab, Vector3.zero, Quaternion.identity);
@@ -53,9 +65,13 @@ namespace Run_n_gun.Space
                     ammoLeft = ammoCapacity;
                 }
             }
-            if (ammoLeft > 0)
+            if (ammoLeft > 0 && !reloading )
             {
                 Shoot();
+            }
+            else
+            {
+                ReloadWeaponStart();
             }
         }
 
@@ -65,10 +81,33 @@ namespace Run_n_gun.Space
             {
                 fireRateTimer = fireRateInSeconds;
                 ammoLeft--;
-                ammo[ammoLeft].position = firePoint.position;
-                bulletRefernce[ammoLeft].SendBullet(firePoint.transform.forward, bulletSpeed);
+                ammo[ammoIndex].position = firePoint.position;
+                bulletRefernce[ammoIndex].SendBullet(firePoint.transform.forward, bulletSpeed);
+                ammoIndex++;
+                if(ammoIndex > ammoCapacity - 1)
+                {
+                    ammoIndex = 0;
+                }
                 recoilControl.CallRecoil();
             }
+        }
+
+        public void ReloadWeaponStart()
+        {
+            if(!reloading && ammoLeft != ammoCapacity)
+            {
+                reloadTimer = reloadSpeed;
+                reloading = true;
+                GameManager.ReloadWeaponStart();
+            }
+        }
+
+        private void ReloadWeaponEnd()
+        {
+            reloadTimer = 0f;
+            ammoLeft = ammoCapacity;
+            reloading = false;
+            GameManager.ReloadWeaponEnd();
         }
     }
 }

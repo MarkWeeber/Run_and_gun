@@ -1,4 +1,4 @@
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class Enums
     {

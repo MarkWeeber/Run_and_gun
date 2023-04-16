@@ -7,7 +7,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.8788AF05" = "UserAim"
+	"last_search.8788AF05" = "PlayerMovement"
 	"OpenInspectorPreview.8788AF05" = "0"
 	"currentGroup.8788AF05" = "scene"
 	"last_search.8440E7BB" = "shader graph"
@@ -82,13 +82,15 @@ providers = {
 	}
 }
 recentSearches = [
+	"t"
+	"P"
 	"UserAim"
 	"s"
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
-showSavedSearchPanel = false
+showSavedSearchPanel = true
 expandedQueries = [
 ]
 queryBuilder = false

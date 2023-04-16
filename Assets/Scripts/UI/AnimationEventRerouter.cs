@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class AnimationEventRerouter : MonoBehaviour
     {

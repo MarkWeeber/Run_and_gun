@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class GameManager : MonoBehaviour
     {
@@ -15,6 +15,9 @@ namespace Run_n_gun.Space
         public static event Action<GameState> OnGameStateChanged;
         public static event Action<float> OnPlayerHealthPointsAdded;
         public static event Action<float> OnPlayerHealthPointsSubtracted;
+        public static event Action OnPlayerWeaponReloadStart;
+        public static event Action OnPlayerWeaponReloadEnd;
+        public static event Action<float, float> OnAmmoChanged;
 
         // necessary components for player related scripts
         public static PlayerMovement playerMovement;
@@ -80,6 +83,21 @@ namespace Run_n_gun.Space
         private void Update()
         {
             state = State;
+        }
+
+        public static void ReloadWeaponStart()
+        {
+            OnPlayerWeaponReloadStart?.Invoke();
+        }
+
+        public static void ReloadWeaponEnd()
+        {
+            OnPlayerWeaponReloadEnd?.Invoke();
+        }
+
+        public static void RefreshAmmoCount(float currentCount, float maxCount)
+        {
+            OnAmmoChanged?.Invoke(currentCount, maxCount);
         }
     }
 }

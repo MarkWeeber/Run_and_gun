@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     [System.Serializable]
     public struct TargetSpotData
@@ -116,18 +116,24 @@ namespace Run_n_gun.Space
         private void LooseTheTarget()
         {
             spotData.enemySpotState = EnemySpotState.TargetLost;
-            spotData.lastKnownPosition = spotData.targetTransform.position;
-            spotData.targetTransform = null;
+            if (spotData.targetTransform != null)
+            {
+                spotData.lastKnownPosition = spotData.targetTransform.position;
+                spotData.targetTransform = null;
+            }
             PushToGroupSpotter();
             enemyComponentsManager.UpdateSpotState(EnemySpotState.TargetLost);
         }
 
         public void AlertOnTheTarget(Transform targetTransform)
         {
-            if (spotData.enemySpotState == EnemySpotState.NoTarget)
+            //Debug.Log("Alerted!");
+            if (spotData.enemySpotState != EnemySpotState.TargetIsVisible)
             {
+                //Debug.Log("ACT!");
                 spotData.enemySpotState = EnemySpotState.AlertedOnTarget;
                 spotData.lastKnownPosition = targetTransform.position;
+                spotData.spotTime = Time.time;
                 PushToGroupSpotter();
                 enemyComponentsManager.UpdateSpotState(EnemySpotState.AlertedOnTarget);
             }

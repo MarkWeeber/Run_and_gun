@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(EnemyMovement))]

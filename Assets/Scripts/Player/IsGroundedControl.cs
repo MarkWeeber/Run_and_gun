@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     [RequireComponent(typeof(SphereCollider))]
     public class IsGroundedControl : MonoBehaviour

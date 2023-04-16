@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class PlayerAnimatorControl : MonoBehaviour
     {
@@ -14,6 +14,7 @@ namespace Run_n_gun.Space
         private void Awake()
         {
             GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.OnPlayerWeaponReloadStart += OnPlayerWeaponReload;
         }
 
         private void Start()
@@ -26,6 +27,7 @@ namespace Run_n_gun.Space
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= OnGameStateChanged;
+            GameManager.OnPlayerWeaponReloadStart -= OnPlayerWeaponReload;
         }
 
         private void Update()
@@ -33,6 +35,11 @@ namespace Run_n_gun.Space
             animator.SetFloat("MoveSpeed", Mathf.Round(playerMovement.HorizontalVelocity * 100f) / 100f);
             animator.SetFloat("VerticalSpeed", Mathf.Round(playerMovement.VecrticalVelocity * 100f) / 100f);
             animator.SetBool("Grounded", isGroundedControl.IsGrounded);
+        }
+
+        private void OnPlayerWeaponReload()
+        {
+            animator.SetTrigger("Reload");
         }
 
         private void PlayDeathAnimation()

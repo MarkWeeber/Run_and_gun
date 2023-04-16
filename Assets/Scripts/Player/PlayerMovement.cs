@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour

@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class PlayerInput : MonoBehaviour
     {
@@ -10,7 +10,6 @@ namespace Run_n_gun.Space
         private RecoilControl recoilControl = null;
         private Weapon weapon;
         private float horizontalInput = 0f;
-
         private void Awake()
         {
             GameManager.OnGameStateChanged += OnGameStateChanged;
@@ -49,6 +48,11 @@ namespace Run_n_gun.Space
                 if (Input.GetButtonDown(GlobalStringVars.FIRE_1))
                 {
                     weapon.TryShoot();
+                }
+                // tracking reload button pressed
+                if (Input.GetKeyDown(GlobalStringVars.WEAPON_RELOAD_KEY))
+                {
+                    weapon.ReloadWeaponStart();
                 }
             }
             else

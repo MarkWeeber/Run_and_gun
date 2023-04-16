@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     class GlobalStringVars
     {
@@ -14,6 +14,7 @@ namespace Run_n_gun.Space
         public const string JUMP_BUTTON = "Jump";
         public const string PLAYER_LAYER = "Player";
         public const string PLAYER_PHASE_THROUGH_LAYER = "PlayerPhaseThrough";
+        public const KeyCode WEAPON_RELOAD_KEY = KeyCode.R;
         #endregion
     }
 }

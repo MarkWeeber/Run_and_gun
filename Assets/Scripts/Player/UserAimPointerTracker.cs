@@ -1,7 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 
-namespace Run_n_gun.Space
+namespace RunAndGun.Space
 {
     public class UserAimPointerTracker : MonoBehaviour
     {
@@ -11,7 +11,6 @@ namespace Run_n_gun.Space
         [SerializeField] private LayerMask hitmask = 0;
         [SerializeField] private Transform AimCrossHairGameObject = null;
         [SerializeField] private Transform rightHandHoldTransform = null;
-        [SerializeField] private Vector3 offset = Vector3.zero;
         private bool activated = true;
         private Vector3 mousePointerPosition = Vector3.zero;
         public Vector3 MousePointerPosition { get { return mousePointerPosition; } }
@@ -99,9 +98,11 @@ namespace Run_n_gun.Space
             if (activated)
             {
                 //AimCrossHairGameObject.transform.position = hitInfo.point;
-                AimCrossHairGameObject.transform.position = new Vector3(hitInfo.point.x + offset.x, hitInfo.point.y + offset.y,
-                    (rightHandHoldTransform != null)?rightHandHoldTransform.position.z:AimCrossHairGameObject.transform.position.z
-                    + offset.z);
+                AimCrossHairGameObject.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y,
+                    (rightHandHoldTransform != null)?
+                        rightHandHoldTransform.position.z:
+                        hitInfo.point.z
+                    );
             }
         }
     }
