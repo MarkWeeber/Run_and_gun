@@ -15,20 +15,19 @@ namespace RunAndGun.Space
         {
             GameManager.OnGameStateChanged += OnGameStateChanged;
             GameManager.OnPlayerHealthPointsAdded += OnHealthPointsAdded;
-            GameManager.OnPlayerHealthPointsSubtracted += OnHealthPointsAdded;
+            StartingHealthPoints = healthPoints;
+            GameManager.PlayerStartingHealthPoints = StartingHealthPoints;
+            GameManager.GamePoints.CurrentHealth = healthPoints;
         }
 
         private void OnDestroy()
         {
             GameManager.OnGameStateChanged -= OnGameStateChanged;
             GameManager.OnPlayerHealthPointsAdded -= OnHealthPointsAdded;
-            GameManager.OnPlayerHealthPointsSubtracted -= OnHealthPointsAdded;
         }
 
         private void Start()
         {
-            StartingHealthPoints = healthPoints;
-            GameManager.PlayerStartingHealthPoints = StartingHealthPoints;
             // testing death event
             //InvokeRepeating(nameof(TestPlayeDeath),1.5f, 1f);
         }
@@ -36,6 +35,7 @@ namespace RunAndGun.Space
         public void AddHealthPoints(float addHealthPoints)
         {
             GameManager.PlayerHealthPointsAdded(addHealthPoints);
+            GameManager.UpdateHealthPoints();
         }
 
         private void OnHealthPointsAdded(float addedHealthPoints)

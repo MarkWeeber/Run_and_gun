@@ -10,23 +10,24 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.OnPlayerHealthPointsSubtracted += OnPlayerHealthPointsSubtracted;
+            GameManager.OnPlayerHealthPointsAdded += OnPlayerHealthPointsAdded;
         }
 
         private void OnDestroy()
         {
-            GameManager.OnPlayerHealthPointsSubtracted -= OnPlayerHealthPointsSubtracted;
+            GameManager.OnPlayerHealthPointsAdded -= OnPlayerHealthPointsAdded;
         }
 
         public void InstantiateMeleeDamage()
         {
             if (Physics.OverlapSphere(this.transform.position, damageDealSphereRadius, targetMask).Length > 1)
             {
-                GameManager.PlayerHealthPointsSubtracted(-damageDealValue);
+                GameManager.PlayerHealthPointsAdded(-damageDealValue);
+                GameManager.UpdateHealthPoints();
             }
         }
 
-        private void OnPlayerHealthPointsSubtracted(float value)
+        private void OnPlayerHealthPointsAdded(float value)
         {
 
         }

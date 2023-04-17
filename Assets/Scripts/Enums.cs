@@ -5,6 +5,14 @@ namespace RunAndGun.Space
 
     }
 
+    public enum GameResultValueType
+    {
+        Points,
+        EnemiesKilled,
+        CurrentHealthPoints,
+        CurrentAmmoRounds,
+    }
+
     public enum GameState
     {
         OnMainMenu,

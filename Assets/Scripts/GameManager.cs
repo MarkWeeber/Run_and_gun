@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RunAndGun.Space
 {
@@ -10,14 +11,18 @@ namespace RunAndGun.Space
         public static GameState State;
         // state to see on inspector
         [SerializeField] private GameState state;
+        // game data
         public static float PlayerStartingHealthPoints;
+        public static GamePoints GamePoints;
         // events
         public static event Action<GameState> OnGameStateChanged;
         public static event Action<float> OnPlayerHealthPointsAdded;
-        public static event Action<float> OnPlayerHealthPointsSubtracted;
         public static event Action OnPlayerWeaponReloadStart;
         public static event Action OnPlayerWeaponReloadEnd;
-        public static event Action<float, float> OnAmmoChanged;
+        public static UnityEvent OnAmmoUpdated = new UnityEvent();
+        public static UnityEvent OnPointsUpdated = new UnityEvent();
+        public static UnityEvent OnEnemiesKilledCountUpdated = new UnityEvent();
+        public static UnityEvent OnHealthPointsUpdated = new UnityEvent();
 
         // necessary components for player related scripts
         public static PlayerMovement playerMovement;
@@ -73,12 +78,9 @@ namespace RunAndGun.Space
         public static void PlayerHealthPointsAdded(float value)
         {
             OnPlayerHealthPointsAdded?.Invoke(value);
+            GamePoints.CurrentHealth += value;
         }
 
-        public static void PlayerHealthPointsSubtracted(float value)
-        {
-            OnPlayerHealthPointsSubtracted?.Invoke(value);
-        }
 
         private void Update()
         {
@@ -95,9 +97,22 @@ namespace RunAndGun.Space
             OnPlayerWeaponReloadEnd?.Invoke();
         }
 
-        public static void RefreshAmmoCount(float currentCount, float maxCount)
+        public static void UpdateAmmo()
         {
-            OnAmmoChanged?.Invoke(currentCount, maxCount);
+            OnAmmoUpdated?.Invoke();
+        }
+
+        public static void UpdatePoints()
+        {
+            OnPointsUpdated?.Invoke();
+        }
+        public static void UpdateKilledCount()
+        {
+            OnEnemiesKilledCountUpdated?.Invoke();
+        }
+        public static void UpdateHealthPoints()
+        {
+            OnHealthPointsUpdated?.Invoke();
         }
     }
 }

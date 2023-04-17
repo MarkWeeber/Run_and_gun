@@ -10,7 +10,6 @@ namespace RunAndGun.Space
         public IsGroundedControl IsGroundedControl { get { return isGroundedControl; } set { isGroundedControl = value; } }
 
         private Animator animator = null;
-
         private void Awake()
         {
             GameManager.OnGameStateChanged += OnGameStateChanged;
@@ -45,6 +44,9 @@ namespace RunAndGun.Space
         private void PlayDeathAnimation()
         {
             animator.SetTrigger("Die");
+            animator.SetLayerWeight(animator.GetLayerIndex("LowerBody"), 0);
+            animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 0);
+            animator.SetLayerWeight(animator.GetLayerIndex("Body"), 1);
         }
 
         private void OnGameStateChanged(GameState state)

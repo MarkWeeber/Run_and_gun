@@ -9,7 +9,6 @@ namespace RunAndGun.Space
         private void Awake()
         {
             GameManager.OnPlayerHealthPointsAdded += OnHealthPointsAdded;
-            GameManager.OnPlayerHealthPointsSubtracted += OnHealthPointsSubtracted;
         }
 
         private void Start()
@@ -21,7 +20,6 @@ namespace RunAndGun.Space
         private void OnDestroy()
         {
             GameManager.OnPlayerHealthPointsAdded -= OnHealthPointsAdded;
-            GameManager.OnPlayerHealthPointsSubtracted -= OnHealthPointsSubtracted;
         }
 
         private void OnHealthPointsAdded(float addedHealthPoints)
@@ -30,13 +28,5 @@ namespace RunAndGun.Space
                 canvas.sizeDelta.x + originalWidth * (addedHealthPoints / GameManager.PlayerStartingHealthPoints),
                 canvas.sizeDelta.y);
         }
-
-        private void OnHealthPointsSubtracted(float subtractedHealthPoints)
-        {
-            canvas.sizeDelta = new Vector2(
-                canvas.sizeDelta.x + originalWidth * (subtractedHealthPoints / GameManager.PlayerStartingHealthPoints),
-                canvas.sizeDelta.y);
-        }
-
     }
 }
