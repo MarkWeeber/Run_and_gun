@@ -47,7 +47,7 @@ Material:
     - _UV_Tilling_Mulitplier: 1
     m_Colors:
     - _Animation_Vector_Speed: {r: 0.2, g: 0.2, b: 0, a: 0}
-    - _Base_Color: {r: 512, g: 0, b: 0, a: 1}
+    - _Base_Color: {r: 766.9961, g: 0, b: 0, a: 1}
     - _UV_Offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4494833294358833730
