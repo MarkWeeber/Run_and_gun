@@ -79,6 +79,7 @@ namespace RunAndGun.Space
         {
             OnPlayerHealthPointsAdded?.Invoke(value);
             GamePoints.CurrentHealth += value;
+            UpdateHealthPoints();
         }
 
 
@@ -110,7 +111,7 @@ namespace RunAndGun.Space
         {
             OnEnemiesKilledCountUpdated?.Invoke();
         }
-        public static void UpdateHealthPoints()
+        private static void UpdateHealthPoints()
         {
             OnHealthPointsUpdated?.Invoke();
         }

@@ -3,7 +3,7 @@ using UnityEngine.Animations.Rigging;
 
 namespace RunAndGun.Space
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour, IDamagable
     {
         [SerializeField] private float healthPoints = 100f;
         public float HealthPoints { get { return healthPoints; } set { OnHealthPointsAdded(value); } }
@@ -32,10 +32,9 @@ namespace RunAndGun.Space
             //InvokeRepeating(nameof(TestPlayeDeath),1.5f, 1f);
         }
 
-        public void AddHealthPoints(float addHealthPoints)
+        public void TakeDamage(float damagePoints)
         {
-            GameManager.PlayerHealthPointsAdded(addHealthPoints);
-            GameManager.UpdateHealthPoints();
+            GameManager.PlayerHealthPointsAdded(-damagePoints);
         }
 
         private void OnHealthPointsAdded(float addedHealthPoints)
@@ -57,7 +56,7 @@ namespace RunAndGun.Space
         }
         private void TestPlayeDeath()
         {
-            AddHealthPoints(-25);
+            TakeDamage(-25);
         }
 
         private void OnGameStateChanged(GameState state)

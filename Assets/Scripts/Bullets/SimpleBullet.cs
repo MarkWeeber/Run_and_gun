@@ -84,7 +84,10 @@ namespace RunAndGun.Space
         private void TryDealDamage(Collider other)
         {
             damagable = other.GetComponent<IDamagable>();
-            DealDamage(damagable);
+            if(damagable != null)
+            {
+                DealDamage(damagable);
+            }
         }
 
         public void DealDamage(IDamagable damagable)

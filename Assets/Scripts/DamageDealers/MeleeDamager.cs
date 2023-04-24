@@ -8,29 +8,32 @@ namespace RunAndGun.Space
         [SerializeField] private float damageDealValue = 5f;
         [SerializeField] private LayerMask targetMask = 0;
 
-        private void Awake()
-        {
-            GameManager.OnPlayerHealthPointsAdded += OnPlayerHealthPointsAdded;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnPlayerHealthPointsAdded -= OnPlayerHealthPointsAdded;
-        }
+        private IDamagable damagable;
+        private GameObject distinctObject = null;
 
         public void InstantiateMeleeDamage()
         {
-            if (Physics.OverlapSphere(this.transform.position, damageDealSphereRadius, targetMask).Length > 1)
+            Collider[] colliders = Physics.OverlapSphere(this.transform.position, damageDealSphereRadius, targetMask);
+            if (colliders.Length > 1)
             {
-                GameManager.PlayerHealthPointsAdded(-damageDealValue);
-                GameManager.UpdateHealthPoints();
+                foreach (Collider item in colliders)
+                {
+                    if(distinctObject != item.gameObject)
+                    {
+                        distinctObject = item.gameObject;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    damagable = item.GetComponent<IDamagable>();
+                    if (damagable != null)
+                    {
+                        damagable.TakeDamage(damageDealValue);
+                    }
+                }
+                distinctObject = null;
             }
         }
-
-        private void OnPlayerHealthPointsAdded(float value)
-        {
-
-        }
-
     }
 }
