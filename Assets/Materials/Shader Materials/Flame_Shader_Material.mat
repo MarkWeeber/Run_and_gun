@@ -111,6 +111,7 @@ Material:
     - _Phase: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Range: 0.5
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -124,7 +125,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FadeColor: {r: 0, g: 0, b: 0, a: 0}
-    - _InitialColor: {r: 299.02704, g: 299.02704, b: 299.02704, a: 1}
+    - _FadeColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.13333334}
+    - _InitialColor: {r: 8, g: 2.4156864, b: 0, a: 1}
+    - _MidColor: {r: 1.3568628, g: 1.0352942, b: 0.63529414, a: 0.23921569}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
