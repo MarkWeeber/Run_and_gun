@@ -16,9 +16,10 @@ namespace RunAndGun.Space
         public static GamePoints GamePoints;
         // events
         public static event Action<GameState> OnGameStateChanged;
-        public static event Action<float> OnPlayerHealthPointsAdded;
         public static event Action OnPlayerWeaponReloadStart;
         public static event Action OnPlayerWeaponReloadEnd;
+
+        public static UnityEvent<float> OnPlayerHealthPointsAdded = new UnityEvent<float>();
         public static UnityEvent OnAmmoUpdated = new UnityEvent();
         public static UnityEvent OnPointsUpdated = new UnityEvent();
         public static UnityEvent OnEnemiesKilledCountUpdated = new UnityEvent();

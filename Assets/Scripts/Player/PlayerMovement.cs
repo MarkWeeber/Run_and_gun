@@ -115,7 +115,7 @@ namespace RunAndGun.Space
         {
             if (active)
             {
-                if (rigidBody.velocity.magnitude < 0.01f && !isGroundedControl.IsGrounded)
+                if (rigidBody.velocity.magnitude < 0.2f && !isGroundedControl.IsGrounded)
                 {
                     if (stuckTimer < stuckTimeDuration)
                     {
