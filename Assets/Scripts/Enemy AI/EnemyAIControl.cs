@@ -6,6 +6,7 @@ namespace RunAndGun.Space
     {
         [SerializeField] private float lostDuration = 30f;
         [SerializeField] private float distanceToInteract = 1f;
+        [SerializeField] private float distanceToInvestigate = 1f;
         [SerializeField] private Vector3 originalPosition;
 
         private EnemyComponentsManager enemyComponentsManager;
@@ -101,7 +102,7 @@ namespace RunAndGun.Space
         private void ReturnToOriginalPost()
         {
             _distanceToOriginalPost = Mathf.Abs(originalPosition.x - this.transform.position.x);
-            if (_distanceToOriginalPost > distanceToInteract)
+            if (_distanceToOriginalPost > distanceToInvestigate)
             {
                 MoveTowards(originalPosition);
             }
@@ -133,7 +134,7 @@ namespace RunAndGun.Space
             if (targetSpotter.SpotData.spotTime + lostDuration > Time.time)
             {
                 _distanceToLastKnownPosition = Mathf.Abs(transform.position.x - targetSpotter.SpotData.lastKnownPosition.x);
-                if (_distanceToLastKnownPosition > distanceToInteract)
+                if (_distanceToLastKnownPosition > distanceToInvestigate)
                 {
                     MoveTowards(targetSpotter.SpotData.lastKnownPosition);
                 }
