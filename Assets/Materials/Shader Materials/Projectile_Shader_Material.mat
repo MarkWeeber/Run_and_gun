@@ -37,13 +37,14 @@ Material:
     - _Contrast_Value: 2
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _TimeScale: 30
     - _Voronoi_Angle: 1
-    - _Voronoi_Cell_Density: 5
+    - _Voronoi_Cell_Density: 12
     m_Colors:
-    - _Base_Color: {r: 0.3478304, g: 1, b: 0, a: 0}
+    - _Base_Color: {r: 0, g: 4.594794, b: 0, a: 1}
     - _Color: {r: 0.40485263, g: 0.8490566, b: 0, a: 0}
-    - _UV_Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _UV_Tiling: {r: 2, g: 2, b: 0, a: 0}
+    - _UV_Offset: {r: -0.15, g: -0.06, b: 0, a: 0}
+    - _UV_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Vector4: {r: 0.12, g: 0.5, b: 0.14, a: 1.07}
   m_BuildTextureStacks: []
 --- !u!114 &7882775614399672066

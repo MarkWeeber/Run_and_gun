@@ -13,6 +13,7 @@ namespace RunAndGun.Space
         private TargetSpotter targetSpotter = null;
         private EnemyMovement enemyMovement = null;
         private EnemyAnimator enemyAnimator = null;
+        private EnemyRangedShooter enemyRangedShooter = null;
         private float _distanceToTarget;
         private float _distanceToLastKnownPosition;
         private float _distanceToOriginalPost;
@@ -33,6 +34,7 @@ namespace RunAndGun.Space
             enemyMovement = enemyComponentsManager.EnemyMovement;
             enemyAnimator = enemyComponentsManager.EnemyAnimator;
             targetSpotter = enemyComponentsManager.TargetSpotter;
+            enemyRangedShooter = enemyComponentsManager.EnemyRangedShooter;
             originalPosition = transform.position;
             CheckLookDirectionAtStart();
         }
@@ -126,6 +128,11 @@ namespace RunAndGun.Space
                 enemyMovement.StopMoving();
                 enemyAnimator.StopAnimateIdle2();
                 enemyAnimator.AnimateAttack();
+                if(enemyRangedShooter != null)
+                {
+                    enemyRangedShooter.ShootAtTarget(
+                        targetSpotter.SpotData.targetTransform.position);
+                }
             }
         }
 

@@ -25,4 +25,19 @@ namespace RunAndGun.Space
         public int EnemiesKilled;
         public float CurrentHealth;
     }
+
+    public struct ProjectileSettings
+    {
+        public float damageDealSphereRadius;
+        public float damageDealValue;
+        public float speed;
+        public LayerMask targetMask;
+        public ProjectileSettings(float damageDealSphereRadius, float damageDealValue, float speed, LayerMask targetMask)
+        {
+            this.damageDealSphereRadius = damageDealSphereRadius;
+            this.damageDealValue = damageDealValue;
+            this.speed = speed;
+            this.targetMask = targetMask;
+        }
+    }
 }

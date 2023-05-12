@@ -19,6 +19,8 @@ namespace RunAndGun.Space
         public TargetSpotter TargetSpotter { get { return targetSpotter; } set { targetSpotter = value; } }
         private EnemyAnimator enemyAnimator;
         public EnemyAnimator EnemyAnimator { get { return enemyAnimator; } set { enemyAnimator = value; } }
+        private EnemyRangedShooter enemyRangedShooter;
+        public EnemyRangedShooter EnemyRangedShooter { get { return enemyRangedShooter; } set { enemyRangedShooter = value; } }
 
         public event Action<EnemySpotState> OnSpotStateChanged;
         public event Action<float> OnTakeDamage;
