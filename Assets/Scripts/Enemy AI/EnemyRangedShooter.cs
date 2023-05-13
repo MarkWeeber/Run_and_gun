@@ -11,6 +11,7 @@ namespace RunAndGun.Space
         [SerializeField] private Transform projectilePrefab;
 
         private EnemyComponentsManager enemyComponentsManager;
+        private Vector3 target;
 
         private void Awake()
         {
@@ -18,7 +19,7 @@ namespace RunAndGun.Space
             enemyComponentsManager.EnemyRangedShooter = this;
         }
 
-        public void ShootAtTarget(Vector3 target)
+        public void ShootAtTarget()
         {
             Transform _projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
             ProjectileDamager _projectileDamager = _projectile.GetComponent<ProjectileDamager>();
@@ -26,5 +27,9 @@ namespace RunAndGun.Space
             _projectileDamager.SendProjectile(target);
         }
 
+        public void SetTarget(Vector3 target)
+        {
+            this.target = target;
+        }
     }
 }

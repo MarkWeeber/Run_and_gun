@@ -128,12 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc597da1b321de64398cc77f96df6a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealSphereRadius: 1
-  damageDealValue: 5
-  speed: 25
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &3142553299369286301
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +178,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

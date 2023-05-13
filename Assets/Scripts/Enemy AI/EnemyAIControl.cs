@@ -130,7 +130,7 @@ namespace RunAndGun.Space
                 enemyAnimator.AnimateAttack();
                 if(enemyRangedShooter != null)
                 {
-                    enemyRangedShooter.ShootAtTarget(
+                    enemyRangedShooter.SetTarget(
                         targetSpotter.SpotData.targetTransform.position);
                 }
             }
