@@ -10,6 +10,7 @@ namespace RunAndGun.Space
         private IDamagable damagable;
         private GameObject distinctObject = null;
         private Rigidbody rbody;
+        public Vector3 target;
 
         private void Awake()
         {
@@ -19,20 +20,52 @@ namespace RunAndGun.Space
 
         public void SendProjectile(Vector3 target)
         {
-            // Vector3 _direction = target - this.transform.position;
-            // float _height = _direction.y;
-            // _direction.y = 0;
-            // float _horizontalDistance = _direction.magnitude;
-            // float _g = Physics.gravity.y; // 9.81f;
-            // float _speedSqr = ProjectileSettings.speed;
-            // float _root = (_speedSqr * _speedSqr) - _g * (_g * _horizontalDistance* _horizontalDistance + 2 * _height * _speedSqr);
-            float angle = 0.5f * (Mathf.Asin((Physics.gravity.y * Vector3.Distance(target, this.transform.position)) / (ProjectileSettings.speed * ProjectileSettings.speed)) * Mathf.Rad2Deg);
-            Quaternion angleRotation =  Quaternion.AngleAxis(angle, Vector3.forward);
-            Vector3 shootDirection = angleRotation * this.transform.forward;
-            Debug.Log(shootDirection);
-            rbody.useGravity = true;
-            //rbody.velocity = Vector3.right + Vector3.up;
-            rbody.velocity = shootDirection * ProjectileSettings.speed;
+            this.target = target;
+            float? angle = CalculateAnge(target, true);
+            if (angle != null)
+            {
+                float _angle = (float)angle;
+                Debug.Log(_angle);
+                this.transform.localEulerAngles = new Vector3(360f - _angle, 0f, 0f);
+                //Quaternion angleRotation = Quaternion.AngleAxis(_angle, Vector3.forward);
+                //Vector3 shootDirection = angleRotation * this.transform.forward;
+                //Debug.Log(shootDirection);
+                //rbody.useGravity = true;
+                //rbody.velocity = this.transform.forward * ProjectileSettings.speed;
+            }
+            else
+            {
+                Debug.Log("COULDN'T CALCULATE");
+            }
+        }
+
+        private float? CalculateAnge(Vector3 target, bool low = false)
+        {
+            Vector3 targetDirection = target - this.transform.position;
+            float y = targetDirection.y;
+            targetDirection.y = 0f;
+            float x = targetDirection.magnitude;
+            float gravity = Physics.gravity.y * -1;
+            float speedSqr = ProjectileSettings.speed;
+            float underTheSqrRoot = (speedSqr * speedSqr) - gravity * (gravity * x * x + 2 * y * speedSqr);
+            if (underTheSqrRoot >= 0f)
+            {
+                float root = Mathf.Sqrt(underTheSqrRoot);
+                float highAngle = speedSqr + root;
+                float lowAngle = speedSqr - root;
+                if (low)
+                {
+                    return Mathf.Atan2(lowAngle, gravity * x) * Mathf.Rad2Deg;
+                }
+                else
+                {
+                    return Mathf.Atan2(highAngle, gravity * x) * Mathf.Rad2Deg;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void OnTriggerEnter(Collider other)

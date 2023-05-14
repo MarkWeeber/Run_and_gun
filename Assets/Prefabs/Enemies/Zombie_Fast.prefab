@@ -466,7 +466,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 6328
+  m_VersionIndex: 6331
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3297,7 +3297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageDealSphereRadius: 1
   damageDealValue: 5
-  speed: 25
+  speed: 10
   targetMask:
     serializedVersion: 2
     m_Bits: 512
