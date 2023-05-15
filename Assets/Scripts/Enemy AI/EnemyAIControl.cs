@@ -128,7 +128,7 @@ namespace RunAndGun.Space
                 enemyMovement.StopMoving();
                 enemyAnimator.StopAnimateIdle2();
                 enemyAnimator.AnimateAttack();
-                if(enemyRangedShooter != null)
+                if(enemyRangedShooter != null && targetSpotter.SpotData.enemySpotState == EnemySpotState.TargetIsVisible)
                 {
                     enemyRangedShooter.SetTarget(
                         targetSpotter.SpotData.targetTransform.position);

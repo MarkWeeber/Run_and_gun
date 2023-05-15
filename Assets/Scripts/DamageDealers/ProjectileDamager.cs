@@ -6,11 +6,13 @@ namespace RunAndGun.Space
     public class ProjectileDamager : MonoBehaviour
     {
         public ProjectileSettings ProjectileSettings;
-
+        public LayerMask DestroyMask;
+        [SerializeField] private ParticleSystem tailPS;
+        [SerializeField] private ParticleSystem blowPS;
+        public Vector3 target;
         private IDamagable damagable;
         private GameObject distinctObject = null;
         private Rigidbody rbody;
-        public Vector3 target;
 
         private void Awake()
         {
@@ -25,17 +27,10 @@ namespace RunAndGun.Space
             if (angle != null)
             {
                 float _angle = (float)angle;
-                Debug.Log(_angle);
-                this.transform.localEulerAngles = new Vector3(360f - _angle, 0f, 0f);
-                //Quaternion angleRotation = Quaternion.AngleAxis(_angle, Vector3.forward);
-                //Vector3 shootDirection = angleRotation * this.transform.forward;
-                //Debug.Log(shootDirection);
-                //rbody.useGravity = true;
-                //rbody.velocity = this.transform.forward * ProjectileSettings.speed;
-            }
-            else
-            {
-                Debug.Log("COULDN'T CALCULATE");
+                this.transform.LookAt(new Vector3(target.x, this.transform.position.y, target.z));
+                this.transform.RotateAround(this.transform.position, this.transform.right, -_angle);
+                rbody.useGravity = true;
+                rbody.velocity = this.transform.forward * ProjectileSettings.speed;
             }
         }
 
@@ -45,8 +40,8 @@ namespace RunAndGun.Space
             float y = targetDirection.y;
             targetDirection.y = 0f;
             float x = targetDirection.magnitude;
-            float gravity = Physics.gravity.y * -1;
-            float speedSqr = ProjectileSettings.speed;
+            float gravity = Physics.gravity.y * -1f;
+            float speedSqr = ProjectileSettings.speed * ProjectileSettings.speed;
             float underTheSqrRoot = (speedSqr * speedSqr) - gravity * (gravity * x * x + 2 * y * speedSqr);
             if (underTheSqrRoot >= 0f)
             {
@@ -70,10 +65,17 @@ namespace RunAndGun.Space
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((ProjectileSettings.targetMask.value & (1 << other.transform.gameObject.layer)) > 0)
+            if ((ProjectileSettings.targetMask.value & (1 << other.transform.gameObject.layer)) > 0
+                ||
+                (DestroyMask.value & (1 << other.transform.gameObject.layer)) > 0)
             {
                 BlowUpProjectile();
-                Destroy(this);
+                tailPS.transform.parent = null;
+                ParticleSystem.EmissionModule em = tailPS.emission;
+                em.enabled = false;
+                blowPS.transform.parent = null;
+                blowPS.Play();
+                Destroy(this.gameObject);
             }
         }
 
