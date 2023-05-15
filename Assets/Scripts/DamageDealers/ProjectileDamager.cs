@@ -9,15 +9,34 @@ namespace RunAndGun.Space
         public LayerMask DestroyMask;
         [SerializeField] private ParticleSystem tailPS;
         [SerializeField] private ParticleSystem blowPS;
+        [SerializeField] private float destroyTime = 5f;
         public Vector3 target;
+        private float destroyTimer;
         private IDamagable damagable;
         private GameObject distinctObject = null;
         private Rigidbody rbody;
+        private ParticleSystem.EmissionModule emissionModule;
+        private ParticleSystem.MinMaxCurve startLifeTime;
 
         private void Awake()
         {
             rbody = GetComponent<Rigidbody>();
             rbody.useGravity = false;
+            destroyTimer = destroyTime;
+        }
+
+
+        private void Update()
+        {
+            if (destroyTimer > 0f)
+            {
+                destroyTimer -= Time.deltaTime;
+            }
+            else
+            {
+                BlowUpProjectile();
+                DestroyProjectile();
+            }
         }
 
         public void SendProjectile(Vector3 target)
@@ -31,6 +50,10 @@ namespace RunAndGun.Space
                 this.transform.RotateAround(this.transform.position, this.transform.right, -_angle);
                 rbody.useGravity = true;
                 rbody.velocity = this.transform.forward * ProjectileSettings.speed;
+            }
+            else
+            {
+                Debug.Log("COULDN'T REACH");
             }
         }
 
@@ -70,12 +93,7 @@ namespace RunAndGun.Space
                 (DestroyMask.value & (1 << other.transform.gameObject.layer)) > 0)
             {
                 BlowUpProjectile();
-                tailPS.transform.parent = null;
-                ParticleSystem.EmissionModule em = tailPS.emission;
-                em.enabled = false;
-                blowPS.transform.parent = null;
-                blowPS.Play();
-                Destroy(this.gameObject);
+                DestroyProjectile();
             }
         }
 
@@ -102,6 +120,18 @@ namespace RunAndGun.Space
                 }
                 distinctObject = null;
             }
+        }
+
+        private void DestroyProjectile()
+        {
+            tailPS.transform.parent = null;
+            emissionModule = tailPS.emission;
+            emissionModule.enabled = false;
+            startLifeTime = tailPS.main.startLifetime;
+            Destroy(tailPS.gameObject, startLifeTime.constant);
+            blowPS.transform.parent = null;
+            blowPS.Play();
+            Destroy(this.gameObject);
         }
 
     }
