@@ -39,10 +39,10 @@ namespace RunAndGun.Space
             }
         }
 
-        public void SendProjectile(Vector3 target)
+        public void SendProjectile(Vector3 target, bool lowShoot)
         {
             this.target = target;
-            float? angle = CalculateAnge(target, true);
+            float? angle = CalculateAnge(target, lowShoot);
             if (angle != null)
             {
                 float _angle = (float)angle;

@@ -83,6 +83,12 @@ namespace RunAndGun.Space
             UpdateHealthPoints();
         }
 
+        public static void PointsAdded(int value)
+        {
+            GamePoints.Points += value;
+            UpdatePoints();
+        }
+
 
         private void Update()
         {

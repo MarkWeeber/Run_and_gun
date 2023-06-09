@@ -25,4 +25,9 @@ namespace RunAndGun.Space
         float CurrentHealth { get; }
         float MaxHealth { get; }
     }
+
+    public interface ICollectible
+    {
+
+    }
 }

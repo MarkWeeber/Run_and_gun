@@ -10,6 +10,7 @@ namespace RunAndGun.Space
         [SerializeField] private float speed = 25f;
         [SerializeField] private LayerMask targetMask = 0;
         [SerializeField] private Transform projectilePrefab;
+        [SerializeField] private bool LowShoot = false;
 
         private EnemyComponentsManager enemyComponentsManager;
         private Vector3 target;
@@ -25,7 +26,7 @@ namespace RunAndGun.Space
             Transform _projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
             ProjectileDamager _projectileDamager = _projectile.GetComponent<ProjectileDamager>();
             _projectileDamager.ProjectileSettings = new ProjectileSettings(damageDealSphereRadius, damageDealValue, speed, targetMask);
-            _projectileDamager.SendProjectile(target + new Vector3(0f, targetHeight, 0f));
+            _projectileDamager.SendProjectile(target + new Vector3(0f, targetHeight, 0f), LowShoot);
         }
 
         public void SetTarget(Vector3 target)

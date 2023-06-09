@@ -466,7 +466,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 6450
+  m_VersionIndex: 6459
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3303,6 +3303,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   projectilePrefab: {fileID: 3142553298119542543, guid: da6f192f9e4b9ca48b86ca23423c1205, type: 3}
+  LowShoot: 1
 --- !u!1 &8308923245721385142
 GameObject:
   m_ObjectHideFlags: 0
