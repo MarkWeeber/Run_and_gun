@@ -106,6 +106,7 @@ Transform:
   - {fileID: 949567584589476664}
   - {fileID: 949567584607212084}
   - {fileID: 8474253705359026555}
+  - {fileID: 6521367720459588017}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
@@ -149,7 +150,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 120
   m_CollisionDetection: 2
 --- !u!114 &138735819437174181
 MonoBehaviour:
@@ -190,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lostDuration: 10
   distanceToInteract: 1
+  distanceToInvestigate: 1
   originalPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &259075629101702579
 GameObject:
@@ -561,7 +563,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5690
+  m_VersionIndex: 5702
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3156,6 +3158,56 @@ Transform:
   m_Father: {fileID: 3282213033748315099}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -40.074333, y: -2.5324712, z: 6.461296}
+--- !u!1 &8157223873025245859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6521367720459588017}
+  - component: {fileID: 606057701809105264}
+  m_Layer: 10
+  m_Name: DropLoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6521367720459588017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157223873025245859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 767639241640163091}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606057701809105264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157223873025245859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5dcac5c4f6e4b4a932734da5305fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthPickup: {fileID: 4113892394816815246, guid: 4ff88a6662418cc4ba12cdaf10bed95d, type: 3}
+  HealthDropRateMin: 0
+  HealthDropRateMax: 1
+  DNASamplePickUp: {fileID: 6250940375494386076, guid: b590948d7e4dadc40b891e4c8861b920, type: 3}
+  DNADropRateMin: 1
+  DNADropRateMax: 3
 --- !u!1 &8446603916934182543
 GameObject:
   m_ObjectHideFlags: 0
