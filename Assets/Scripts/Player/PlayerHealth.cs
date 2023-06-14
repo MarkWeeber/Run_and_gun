@@ -41,7 +41,7 @@ namespace RunAndGun.Space
             if (!isDead)
             {
                 healthPoints += addedHealthPoints;
-                healthPoints = Mathf.Clamp(healthPoints, -StartingHealthPoints ,StartingHealthPoints);
+                //healthPoints = Mathf.Clamp(healthPoints, -StartingHealthPoints ,StartingHealthPoints);
                 if (healthPoints <= 0)
                 {
                     GameManager.UpdateGameState(GameState.PlayerDead);

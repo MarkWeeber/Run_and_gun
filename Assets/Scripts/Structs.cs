@@ -24,6 +24,13 @@ namespace RunAndGun.Space
         public int CurrentAmmoCount;
         public int EnemiesKilled;
         public float CurrentHealth;
+        public GamePoints(int points = 0, int currentAmmoCount = 0, int enemiesKilled = 0, float currentHealth = 100f)
+        {
+            Points = points;
+            CurrentAmmoCount = currentAmmoCount;
+            EnemiesKilled = enemiesKilled;
+            CurrentHealth = currentHealth;
+        }
     }
 
     public struct ProjectileSettings

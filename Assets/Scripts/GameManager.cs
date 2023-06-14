@@ -10,7 +10,9 @@ namespace RunAndGun.Space
         public static GameManager Instance;
         public static GameState State;
         // state to see on inspector
-        [SerializeField] private GameState state;
+        [SerializeField] private GameState stateExposed;
+        [SerializeField] private GameState StartingState;
+        [SerializeField] private GamePoints gamePointsExposed;
         // game data
         public static float PlayerStartingHealthPoints;
         public static GamePoints GamePoints;
@@ -41,6 +43,9 @@ namespace RunAndGun.Space
         private void Awake()
         {
             Instance = this;
+            stateExposed = StartingState;
+            UpdateGameState(StartingState);
+            GamePoints = new GamePoints();
         }
 
         private void Start()
@@ -54,22 +59,22 @@ namespace RunAndGun.Space
             switch (State)
             {
                 case GameState.OnMainMenu:
-
+                    Cursor.visible = true;
                     break;
                 case GameState.InGamePaused:
-
+                    Cursor.visible = true;
                     break;
                 case GameState.InGameActive:
-
+                    Cursor.visible = false;
                     break;
                 case GameState.PlayerDead:
-
+                    Cursor.visible = false;
                     break;
                 case GameState.LevelVictory:
-
+                    Cursor.visible = false;
                     break;
                 case GameState.LevelGameOver:
-
+                    Cursor.visible = false;
                     break;
                 default: break;
             }
@@ -92,7 +97,8 @@ namespace RunAndGun.Space
 
         private void Update()
         {
-            state = State;
+            stateExposed = State;
+            gamePointsExposed = GamePoints;
         }
 
         public static void ReloadWeaponStart()
