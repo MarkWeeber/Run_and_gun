@@ -8,34 +8,34 @@ namespace RunAndGun.Space
     {
         // singleton
         public static GameManager Instance;
-        public static GameState State;
+        public GameState State;
         // state to see on inspector
         [SerializeField] private GameState stateExposed;
         [SerializeField] private GameState StartingState;
         [SerializeField] private GamePoints gamePointsExposed;
         // game data
-        public static float PlayerStartingHealthPoints;
-        public static GamePoints GamePoints;
+        public float PlayerStartingHealthPoints;
+        public GamePoints GamePoints;
         // events
-        public static event Action<GameState> OnGameStateChanged;
-        public static event Action OnPlayerWeaponReloadStart;
-        public static event Action OnPlayerWeaponReloadEnd;
+        public UnityEvent<GameState> OnGameStateChanged;
+        public UnityEvent OnPlayerWeaponReloadStart;
+        public UnityEvent OnPlayerWeaponReloadEnd;
 
-        public static UnityEvent<float> OnPlayerHealthPointsAdded = new UnityEvent<float>();
-        public static UnityEvent OnAmmoUpdated = new UnityEvent();
-        public static UnityEvent OnPointsUpdated = new UnityEvent();
-        public static UnityEvent OnEnemiesKilledCountUpdated = new UnityEvent();
-        public static UnityEvent OnHealthPointsUpdated = new UnityEvent();
+        public UnityEvent<float> OnPlayerHealthPointsAdded = new UnityEvent<float>();
+        public UnityEvent OnAmmoUpdated = new UnityEvent();
+        public UnityEvent OnPointsUpdated = new UnityEvent();
+        public UnityEvent OnEnemiesKilledCountUpdated = new UnityEvent();
+        public UnityEvent OnHealthPointsUpdated = new UnityEvent();
 
         // necessary components for player related scripts
-        public static PlayerMovement playerMovement;
-        public static IsGroundedControl isGroundedControl;
-        public static Transform aimTarget;
-        public static RecoilControl recoilControl;
-        public static Weapon weapon;
+        public PlayerMovement playerMovement;
+        public IsGroundedControl isGroundedControl;
+        public Transform aimTarget;
+        public RecoilControl recoilControl;
+        public Weapon weapon;
 
         // necessary components for other classes
-        public static Transform playerTransform;
+        public Transform playerTransform;
 
         // reference to selected enemy
         public EnemyHealthBar_UI EnemyHealthBar_UI;
@@ -44,19 +44,19 @@ namespace RunAndGun.Space
         {
             Instance = this;
             stateExposed = StartingState;
-            UpdateGameState(StartingState);
             GamePoints = new GamePoints();
         }
 
         private void Start()
         {
             EnemyHealthBar_UI = GameObject.FindObjectOfType<EnemyHealthBar_UI>();
+            UpdateGameState(StartingState);
         }
 
         public static void UpdateGameState(GameState newState)
         {
-            State = newState;
-            switch (State)
+            Instance.State = newState;
+            switch (Instance.State)
             {
                 case GameState.OnMainMenu:
                     Cursor.visible = true;
@@ -78,19 +78,19 @@ namespace RunAndGun.Space
                     break;
                 default: break;
             }
-            OnGameStateChanged?.Invoke(newState);
+            Instance.OnGameStateChanged?.Invoke(newState);
         }
 
         public static void PlayerHealthPointsAdded(float value)
         {
-            OnPlayerHealthPointsAdded?.Invoke(value);
-            GamePoints.CurrentHealth += value;
+            Instance.OnPlayerHealthPointsAdded?.Invoke(value);
+            Instance.GamePoints.CurrentHealth += value;
             UpdateHealthPoints();
         }
 
         public static void PointsAdded(int value)
         {
-            GamePoints.Points += value;
+            Instance.GamePoints.Points += value;
             UpdatePoints();
         }
 
@@ -103,30 +103,30 @@ namespace RunAndGun.Space
 
         public static void ReloadWeaponStart()
         {
-            OnPlayerWeaponReloadStart?.Invoke();
+            Instance.OnPlayerWeaponReloadStart?.Invoke();
         }
 
         public static void ReloadWeaponEnd()
         {
-            OnPlayerWeaponReloadEnd?.Invoke();
+            Instance.OnPlayerWeaponReloadEnd?.Invoke();
         }
 
         public static void UpdateAmmo()
         {
-            OnAmmoUpdated?.Invoke();
+            Instance.OnAmmoUpdated?.Invoke();
         }
 
         public static void UpdatePoints()
         {
-            OnPointsUpdated?.Invoke();
+            Instance.OnPointsUpdated?.Invoke();
         }
         public static void UpdateKilledCount()
         {
-            OnEnemiesKilledCountUpdated?.Invoke();
+            Instance.OnEnemiesKilledCountUpdated?.Invoke();
         }
         private static void UpdateHealthPoints()
         {
-            OnHealthPointsUpdated?.Invoke();
+            Instance.OnHealthPointsUpdated?.Invoke();
         }
     }
 }

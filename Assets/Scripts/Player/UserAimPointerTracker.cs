@@ -20,17 +20,12 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
         }
 
         private void Start()
         {
             mainCamera = Camera.main;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
         private void LateUpdate()

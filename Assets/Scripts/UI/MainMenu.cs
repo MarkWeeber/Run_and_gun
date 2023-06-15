@@ -8,17 +8,7 @@ namespace RunAndGun.Space
     {
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
-        }
-
-        private void Start()
-        {
-
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
         }
 
         public void PauseGameButtonPress()
@@ -64,7 +54,7 @@ namespace RunAndGun.Space
 
         private void ResumeGame()
         {
-            if(GameManager.State != GameState.PlayerDead || GameManager.State != GameState.LevelGameOver || GameManager.State != GameState.LevelVictory)
+            if(GameManager.Instance.State != GameState.PlayerDead || GameManager.Instance.State != GameState.LevelGameOver || GameManager.Instance.State != GameState.LevelVictory)
             {
                 Time.timeScale = 1f;    
             }

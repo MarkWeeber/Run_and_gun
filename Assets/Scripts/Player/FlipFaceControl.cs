@@ -12,9 +12,10 @@ namespace RunAndGun.Space
         private float xDifference = 0f;
         private bool lookLeft = false;
         private bool active = true;
+
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
         }
 
         private void Start()
@@ -29,11 +30,6 @@ namespace RunAndGun.Space
                 }
             }
             active = true;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
         }
 
         private void Update()

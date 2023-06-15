@@ -9,10 +9,10 @@ namespace RunAndGun.Space
         [SerializeField] private LayerMask groundedMask = 0;
         private LayerMask actualMask = 0;
         private SphereCollider sphereCollider;
-        
+
         private void Awake()
         {
-            GameManager.isGroundedControl = this;
+            GameManager.Instance.isGroundedControl = this;
         }
 
         private void Start()

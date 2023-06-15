@@ -19,16 +19,16 @@ namespace RunAndGun.Space
             switch (valueType)
             {
                 case GameResultValueType.Points:
-                    GameManager.OnPointsUpdated.AddListener(UpdatePoints);
+                    GameManager.Instance.OnPointsUpdated.AddListener(UpdatePoints);
                     break;
                 case GameResultValueType.EnemiesKilled:
-                    GameManager.OnEnemiesKilledCountUpdated.AddListener(UpdatePoints);
+                    GameManager.Instance.OnEnemiesKilledCountUpdated.AddListener(UpdatePoints);
                     break;
                 case GameResultValueType.CurrentHealthPoints:
-                    GameManager.OnHealthPointsUpdated.AddListener(UpdatePoints);
+                    GameManager.Instance.OnHealthPointsUpdated.AddListener(UpdatePoints);
                     break;
                 case GameResultValueType.CurrentAmmoRounds:
-                    GameManager.OnAmmoUpdated.AddListener(UpdatePoints);
+                    GameManager.Instance.OnAmmoUpdated.AddListener(UpdatePoints);
                     break;
                 default:
                     break;
@@ -42,16 +42,16 @@ namespace RunAndGun.Space
             switch (valueType)
             {
                 case GameResultValueType.Points:
-                    value = GameManager.GamePoints.Points;
+                    value = GameManager.Instance.GamePoints.Points;
                     break;
                 case GameResultValueType.EnemiesKilled:
-                    value = GameManager.GamePoints.EnemiesKilled;
+                    value = GameManager.Instance.GamePoints.EnemiesKilled;
                     break;
                 case GameResultValueType.CurrentHealthPoints:
-                    value = GameManager.GamePoints.CurrentHealth;
+                    value = GameManager.Instance.GamePoints.CurrentHealth;
                     break;
                 case GameResultValueType.CurrentAmmoRounds:
-                    value = GameManager.GamePoints.CurrentAmmoCount;
+                    value = GameManager.Instance.GamePoints.CurrentAmmoCount;
                     break;
                 default:
                     break;

@@ -48,7 +48,7 @@ namespace RunAndGun.Space
             }
             else
             {
-                enemyComponentsManager.TargetSpotter.AlertOnTheTarget(GameManager.playerTransform);
+                enemyComponentsManager.TargetSpotter.AlertOnTheTarget(GameManager.Instance.playerTransform);
             }
         }
 

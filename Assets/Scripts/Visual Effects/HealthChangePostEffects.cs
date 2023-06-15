@@ -14,7 +14,7 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
+            GameManager.Instance.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
         }
 
         private void Update()

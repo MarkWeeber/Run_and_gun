@@ -9,23 +9,13 @@ namespace RunAndGun.Space
         [SerializeField] private RigBuilder rigBuilder = null;
         public RigBuilder RigBuilder { get { return rigBuilder; } set { rigBuilder = value; } }
         private bool disabled = false;
+
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
-            GameManager.OnPlayerWeaponReloadStart += PauseAnimationRigging;
-            GameManager.OnPlayerWeaponReloadEnd += ResumeAnimationRigging;
-        }
-
-        private void Start()
-        {
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+            GameManager.Instance.OnPlayerWeaponReloadStart.AddListener(PauseAnimationRigging);
+            GameManager.Instance.OnPlayerWeaponReloadEnd.AddListener(ResumeAnimationRigging);
             rigBuilder = GetComponent<RigBuilder>();
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
-            GameManager.OnPlayerWeaponReloadStart -= PauseAnimationRigging;
-            GameManager.OnPlayerWeaponReloadEnd -= ResumeAnimationRigging;
         }
 
         private void OnGameStateChanged(GameState state)

@@ -9,14 +9,8 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.OnPlayerWeaponReloadStart += ReloadWeaponStart;
-            GameManager.OnPlayerWeaponReloadEnd += ReloadWeaponEnd;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnPlayerWeaponReloadStart -= ReloadWeaponStart;
-            GameManager.OnPlayerWeaponReloadEnd -= ReloadWeaponEnd;
+            GameManager.Instance.OnPlayerWeaponReloadStart.AddListener(ReloadWeaponStart);
+            GameManager.Instance.OnPlayerWeaponReloadEnd.AddListener(ReloadWeaponEnd);
         }
 
         private void ReloadWeaponStart()

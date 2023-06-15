@@ -8,25 +8,19 @@ namespace RunAndGun.Space
         [SerializeField] private IsGroundedControl isGroundedControl = null;
         public PlayerMovement PlayerMovement { get { return playerMovement; } set { playerMovement = value; } }
         public IsGroundedControl IsGroundedControl { get { return isGroundedControl; } set { isGroundedControl = value; } }
-
         private Animator animator = null;
+
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
-            GameManager.OnPlayerWeaponReloadStart += OnPlayerWeaponReload;
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+            GameManager.Instance.OnPlayerWeaponReloadStart.AddListener(OnPlayerWeaponReload);
         }
 
         private void Start()
         {
             animator = GetComponent<Animator>();
-            playerMovement = GameManager.playerMovement;
-            isGroundedControl = GameManager.isGroundedControl;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
-            GameManager.OnPlayerWeaponReloadStart -= OnPlayerWeaponReload;
+            playerMovement = GameManager.Instance.playerMovement;
+            isGroundedControl = GameManager.Instance.isGroundedControl;
         }
 
         private void Update()

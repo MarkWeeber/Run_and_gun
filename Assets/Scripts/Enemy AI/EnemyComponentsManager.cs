@@ -45,7 +45,7 @@ namespace RunAndGun.Space
         public void Die()
         {
             OnDeath?.Invoke();
-            GameManager.GamePoints.EnemiesKilled += 1;
+            GameManager.Instance.GamePoints.EnemiesKilled += 1;
             this.gameObject.layer = LayerMask.NameToLayer(GlobalStringVars.PLAYER_PHASE_THROUGH_LAYER);
         }
     }

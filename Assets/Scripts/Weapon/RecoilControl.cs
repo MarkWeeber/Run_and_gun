@@ -20,7 +20,7 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.recoilControl = this;
+            GameManager.Instance.recoilControl = this;
         }
 
         private void Start()

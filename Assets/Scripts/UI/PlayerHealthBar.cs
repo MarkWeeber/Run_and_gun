@@ -8,7 +8,7 @@ namespace RunAndGun.Space
         private float originalWidth = 0f;
         private void Awake()
         {
-            GameManager.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
+            GameManager.Instance.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
         }
 
         private void Start()
@@ -20,7 +20,7 @@ namespace RunAndGun.Space
         private void OnHealthPointsAdded(float addedHealthPoints)
         {
             canvas.sizeDelta = new Vector2(
-                canvas.sizeDelta.x + originalWidth * (addedHealthPoints / GameManager.PlayerStartingHealthPoints),
+                canvas.sizeDelta.x + originalWidth * (addedHealthPoints / GameManager.Instance.PlayerStartingHealthPoints),
                 canvas.sizeDelta.y);
         }
     }

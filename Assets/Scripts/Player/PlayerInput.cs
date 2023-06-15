@@ -10,22 +10,18 @@ namespace RunAndGun.Space
         private RecoilControl recoilControl = null;
         private Weapon weapon;
         private float horizontalInput = 0f;
+
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
         }
 
         private void Start()
         {
             activated = true;
-            playerMovement = GameManager.playerMovement;
-            recoilControl = GameManager.recoilControl;
-            weapon = GameManager.weapon;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
+            playerMovement = GameManager.Instance.playerMovement;
+            recoilControl = GameManager.Instance.recoilControl;
+            weapon = GameManager.Instance.weapon;
         }
 
         private void Update()

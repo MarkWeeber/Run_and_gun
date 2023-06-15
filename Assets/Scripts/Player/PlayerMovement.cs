@@ -26,20 +26,15 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.playerMovement = this;
-            GameManager.OnGameStateChanged += OnGameStateChanged;
-            GameManager.playerTransform = this.transform;
+            GameManager.Instance.playerMovement = this;
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+            GameManager.Instance.playerTransform = this.transform;
         }
 
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
-            isGroundedControl = GameManager.isGroundedControl;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
+            isGroundedControl = GameManager.Instance.isGroundedControl;
         }
 
         private void Update()

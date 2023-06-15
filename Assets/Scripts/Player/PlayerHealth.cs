@@ -13,16 +13,11 @@ namespace RunAndGun.Space
 
         private void Awake()
         {
-            GameManager.OnGameStateChanged += OnGameStateChanged;
-            GameManager.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
+            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+            GameManager.Instance.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
             StartingHealthPoints = healthPoints;
-            GameManager.PlayerStartingHealthPoints = StartingHealthPoints;
-            GameManager.GamePoints.CurrentHealth = healthPoints;
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.OnGameStateChanged -= OnGameStateChanged;
+            GameManager.Instance.PlayerStartingHealthPoints = StartingHealthPoints;
+            GameManager.Instance.GamePoints.CurrentHealth = healthPoints;
         }
 
         private void Start()
