@@ -42,16 +42,16 @@ namespace RunAndGun.Space
             switch (valueType)
             {
                 case GameResultValueType.Points:
-                    value = GameManager.Instance.GamePoints.Points;
+                    value = GlobalBuffer.gamePoints.Points;
                     break;
                 case GameResultValueType.EnemiesKilled:
-                    value = GameManager.Instance.GamePoints.EnemiesKilled;
+                    value = GlobalBuffer.gamePoints.EnemiesKilled;
                     break;
                 case GameResultValueType.CurrentHealthPoints:
-                    value = GameManager.Instance.GamePoints.CurrentHealth;
+                    value = GlobalBuffer.gamePoints.CurrentHealth;
                     break;
                 case GameResultValueType.CurrentAmmoRounds:
-                    value = GameManager.Instance.GamePoints.CurrentAmmoCount;
+                    value = GlobalBuffer.gamePoints.CurrentAmmoCount;
                     break;
                 default:
                     break;

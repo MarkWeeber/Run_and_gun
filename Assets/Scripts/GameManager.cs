@@ -10,12 +10,10 @@ namespace RunAndGun.Space
         public static GameManager Instance;
         public GameState State;
         // state to see on inspector
-        [SerializeField] private GameState stateExposed;
         [SerializeField] private GameState StartingState;
         [SerializeField] private GamePoints gamePointsExposed;
         // game data
         public float PlayerStartingHealthPoints;
-        public GamePoints GamePoints;
         // events
         public UnityEvent<GameState> OnGameStateChanged;
         public UnityEvent OnPlayerWeaponReloadStart;
@@ -43,8 +41,7 @@ namespace RunAndGun.Space
         private void Awake()
         {
             Instance = this;
-            stateExposed = StartingState;
-            GamePoints = new GamePoints();
+            GlobalBuffer.Reset();
         }
 
         private void Start()
@@ -84,21 +81,20 @@ namespace RunAndGun.Space
         public static void PlayerHealthPointsAdded(float value)
         {
             Instance.OnPlayerHealthPointsAdded?.Invoke(value);
-            Instance.GamePoints.CurrentHealth += value;
+            GlobalBuffer.gamePoints.CurrentHealth += value;
             UpdateHealthPoints();
         }
 
         public static void PointsAdded(int value)
         {
-            Instance.GamePoints.Points += value;
+            GlobalBuffer.gamePoints.Points += value;
             UpdatePoints();
         }
 
 
         private void Update()
         {
-            stateExposed = State;
-            gamePointsExposed = GamePoints;
+            gamePointsExposed = GlobalBuffer.gamePoints;
         }
 
         public static void ReloadWeaponStart()

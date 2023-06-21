@@ -17,7 +17,7 @@ namespace RunAndGun.Space
             GameManager.Instance.OnPlayerHealthPointsAdded.AddListener(OnHealthPointsAdded);
             StartingHealthPoints = healthPoints;
             GameManager.Instance.PlayerStartingHealthPoints = StartingHealthPoints;
-            GameManager.Instance.GamePoints.CurrentHealth = healthPoints;
+            GlobalBuffer.gamePoints.CurrentHealth = healthPoints;
         }
 
         private void Start()

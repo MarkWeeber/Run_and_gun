@@ -28,7 +28,7 @@ namespace RunAndGun.Space
         private void Start()
         {
             ammoLeft = ammoCapacity;
-            GameManager.Instance.GamePoints.CurrentAmmoCount = ammoLeft;
+            GlobalBuffer.gamePoints.CurrentAmmoCount = ammoLeft;
             recoilControl = GameManager.Instance.recoilControl;
             InstantiateAmmoCapacity();
         }
@@ -94,7 +94,7 @@ namespace RunAndGun.Space
                     ammoIndex = 0;
                 }
                 recoilControl.CallRecoil();
-                GameManager.Instance.GamePoints.CurrentAmmoCount = ammoLeft;
+                GlobalBuffer.gamePoints.CurrentAmmoCount = ammoLeft;
                 GameManager.UpdateAmmo();
             }
         }
@@ -114,7 +114,7 @@ namespace RunAndGun.Space
             reloadTimer = 0f;
             ammoLeft = ammoCapacity;
             reloading = false;
-            GameManager.Instance.GamePoints.CurrentAmmoCount = ammoLeft;
+            GlobalBuffer.gamePoints.CurrentAmmoCount = ammoLeft;
             GameManager.UpdateAmmo();
             GameManager.ReloadWeaponEnd();
         }
