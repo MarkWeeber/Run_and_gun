@@ -20,7 +20,7 @@ namespace RunAndGun.Space
         private void GivePoints()
         {
             taken = true;
-            GameManager.PointsAdded(points);
+            GameManager.Instance.PointsAdded(points);
             Destroy(this.gameObject);
         }
     }

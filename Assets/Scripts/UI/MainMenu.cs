@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RunAndGun.Space
 {
@@ -8,17 +7,35 @@ namespace RunAndGun.Space
     {
         private void Awake()
         {
-            GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+            }
         }
 
         public void PauseGameButtonPress()
         {
-            GameManager.UpdateGameState(GameState.InGamePaused);
+            GameManager.Instance.UpdateGameState(GameState.InGamePaused);
         }
 
         public void ResumeGameButtonPress()
         {
-            GameManager.UpdateGameState(GameState.InGameActive);
+            GameManager.Instance.UpdateGameState(GameState.InGameActive);
+        }
+
+        public void GoToMainMenuButtonPress()
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        public void LoadGivenScene(int index)
+        {
+            SceneManager.LoadScene(index);
+        }
+
+        public void RestartButtonPress()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void OnGameStateChanged(GameState state)

@@ -28,7 +28,7 @@ namespace RunAndGun.Space
 
         public void TakeDamage(float damagePoints)
         {
-            GameManager.PlayerHealthPointsAdded(-damagePoints);
+            GameManager.Instance.PlayerHealthPointsAdded(-damagePoints);
         }
 
         private void OnHealthPointsAdded(float addedHealthPoints)
@@ -39,7 +39,7 @@ namespace RunAndGun.Space
                 //healthPoints = Mathf.Clamp(healthPoints, -StartingHealthPoints ,StartingHealthPoints);
                 if (healthPoints <= 0)
                 {
-                    GameManager.UpdateGameState(GameState.PlayerDead);
+                    GameManager.Instance.UpdateGameState(GameState.PlayerDead);
                 }
             }
         }

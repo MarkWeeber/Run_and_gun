@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace RunAndGun.Space
 {
@@ -50,7 +50,7 @@ namespace RunAndGun.Space
             UpdateGameState(StartingState);
         }
 
-        public static void UpdateGameState(GameState newState)
+        public void UpdateGameState(GameState newState)
         {
             Instance.State = newState;
             switch (Instance.State)
@@ -65,7 +65,7 @@ namespace RunAndGun.Space
                     Cursor.visible = false;
                     break;
                 case GameState.PlayerDead:
-                    Cursor.visible = false;
+                    Cursor.visible = true;
                     break;
                 case GameState.LevelVictory:
                     Cursor.visible = false;
@@ -78,17 +78,17 @@ namespace RunAndGun.Space
             Instance.OnGameStateChanged?.Invoke(newState);
         }
 
-        public static void PlayerHealthPointsAdded(float value)
+        public void PlayerHealthPointsAdded(float value)
         {
             Instance.OnPlayerHealthPointsAdded?.Invoke(value);
             GlobalBuffer.gamePoints.CurrentHealth += value;
-            UpdateHealthPoints();
+            Instance.UpdateHealthPoints();
         }
 
-        public static void PointsAdded(int value)
+        public void PointsAdded(int value)
         {
             GlobalBuffer.gamePoints.Points += value;
-            UpdatePoints();
+            Instance.UpdatePoints();
         }
 
 
@@ -97,32 +97,38 @@ namespace RunAndGun.Space
             gamePointsExposed = GlobalBuffer.gamePoints;
         }
 
-        public static void ReloadWeaponStart()
+        public void ReloadWeaponStart()
         {
             Instance.OnPlayerWeaponReloadStart?.Invoke();
         }
 
-        public static void ReloadWeaponEnd()
+        public void ReloadWeaponEnd()
         {
             Instance.OnPlayerWeaponReloadEnd?.Invoke();
         }
 
-        public static void UpdateAmmo()
+        public void UpdateAmmo()
         {
             Instance.OnAmmoUpdated?.Invoke();
         }
 
-        public static void UpdatePoints()
+        public void UpdatePoints()
         {
             Instance.OnPointsUpdated?.Invoke();
         }
-        public static void UpdateKilledCount()
+
+        public void UpdateKilledCount()
         {
             Instance.OnEnemiesKilledCountUpdated?.Invoke();
         }
-        private static void UpdateHealthPoints()
+        private void UpdateHealthPoints()
         {
             Instance.OnHealthPointsUpdated?.Invoke();
+        }
+
+        public void GoToEndScene(bool fail = true)
+        {
+            SceneManager.LoadScene(2);
         }
     }
 }
