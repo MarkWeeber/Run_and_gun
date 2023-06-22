@@ -66,6 +66,8 @@ namespace RunAndGun.Space
                     break;
                 case GameState.PlayerDead:
                     Cursor.visible = true;
+                    GlobalBuffer.CalculateTimeSpent();
+                    GlobalBuffer.failed = true;
                     break;
                 case GameState.LevelVictory:
                     Cursor.visible = false;
@@ -126,7 +128,7 @@ namespace RunAndGun.Space
             Instance.OnHealthPointsUpdated?.Invoke();
         }
 
-        public void GoToEndScene(bool fail = true)
+        public void GoToEndScene()
         {
             SceneManager.LoadScene(2);
         }

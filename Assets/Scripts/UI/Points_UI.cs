@@ -7,7 +7,7 @@ namespace RunAndGun.Space
     {
         [SerializeField] private GameResultValueType valueType;
         private TMP_Text text;
-        private float value;
+        private string value;
         private void Awake()
         {
             text = GetComponent<TMP_Text>();
@@ -18,21 +18,25 @@ namespace RunAndGun.Space
             switch (valueType)
             {
                 case GameResultValueType.Points:
-                    value = GlobalBuffer.gamePoints.Points;
+                    value = GlobalBuffer.gamePoints.Points.ToString();
                     break;
                 case GameResultValueType.EnemiesKilled:
-                    value = GlobalBuffer.gamePoints.EnemiesKilled;
+                    value = GlobalBuffer.gamePoints.EnemiesKilled.ToString();
                     break;
                 case GameResultValueType.CurrentHealthPoints:
-                    value = GlobalBuffer.gamePoints.CurrentHealth;
+                    value = GlobalBuffer.gamePoints.CurrentHealth.ToString();
                     break;
                 case GameResultValueType.CurrentAmmoRounds:
-                    value = GlobalBuffer.gamePoints.CurrentAmmoCount;
+                    value = GlobalBuffer.gamePoints.CurrentAmmoCount.ToString();
+                    break;
+                case GameResultValueType.TimeSpent:
+                    //string format = @"dd\:hh\:mm\:ss\.fffffff";
+                    value = GlobalBuffer.TimeSpent.ToString(@"hh\:mm\:ss");
                     break;
                 default:
                     break;
             }
-            text.text = value.ToString();
+            text.text = value;
         }
     }
 }

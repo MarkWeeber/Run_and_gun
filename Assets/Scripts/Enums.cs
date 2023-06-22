@@ -11,6 +11,7 @@ namespace RunAndGun.Space
         EnemiesKilled,
         CurrentHealthPoints,
         CurrentAmmoRounds,
+        TimeSpent,
     }
 
     public enum GameState
