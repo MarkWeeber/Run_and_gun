@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -24,6 +26,8 @@ namespace RunAndGun.Space
         public UnityEvent OnPointsUpdated = new UnityEvent();
         public UnityEvent OnEnemiesKilledCountUpdated = new UnityEvent();
         public UnityEvent OnHealthPointsUpdated = new UnityEvent();
+        public UnityEvent<string> OnAnnounce = new UnityEvent<string>();
+        public UnityEvent OnAllEnemiesKilled = new UnityEvent();
 
         // necessary components for player related scripts
         public PlayerMovement playerMovement;
@@ -34,6 +38,8 @@ namespace RunAndGun.Space
 
         // necessary components for other classes
         public Transform playerTransform;
+        public List<Transform> Enemies { get { return enemies; } set { CheckIfAllEnemiesKilled(value); } }
+        private List<Transform> enemies = new List<Transform>();
 
         // reference to selected enemy
         public EnemyHealthBar_UI EnemyHealthBar_UI;
@@ -131,6 +137,26 @@ namespace RunAndGun.Space
         public void GoToEndScene()
         {
             SceneManager.LoadScene(2);
+        }
+
+        public void AnnounceText(string text)
+        {
+            Instance.OnAnnounce?.Invoke(text);
+        }
+
+        private void CheckIfAllEnemiesKilled(List<Transform> value)
+        {
+            Debug.Log("CHECKING");
+            if (!value.Any())
+            {
+                OnAllEnemiesKilled?.Invoke();
+                Debug.Log("ALL ENEMIES KILLED");
+            }
+            else
+            {
+                Debug.Log("NOT ALL ENEMIES KILLED");
+            }
+            enemies = value;
         }
     }
 }
