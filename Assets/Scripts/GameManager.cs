@@ -46,11 +46,11 @@ namespace RunAndGun.Space
         private void Awake()
         {
             Instance = this;
+            GlobalBuffer.Reset();
         }
 
         private void Start()
         {
-            GlobalBuffer.Reset();
             EnemyHealthBar_UI = GameObject.FindObjectOfType<EnemyHealthBar_UI>();
             UpdateGameState(StartingState);
         }
@@ -73,7 +73,7 @@ namespace RunAndGun.Space
                     Cursor.visible = true;
                     GlobalBuffer.CalculateTimeSpent();
                     GlobalBuffer.failed = true;
-                    GoToEndScene();
+                    //GoToEndScene();
                     break;
                 case GameState.LevelVictory:
                     Cursor.visible = true;
@@ -136,7 +136,7 @@ namespace RunAndGun.Space
             Instance.OnHealthPointsUpdated?.Invoke();
         }
 
-        private void GoToEndScene()
+        public void GoToEndScene()
         {
             SceneManager.LoadScene(2);
         }

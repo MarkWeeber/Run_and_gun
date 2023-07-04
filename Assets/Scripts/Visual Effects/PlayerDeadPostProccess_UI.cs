@@ -35,8 +35,8 @@ namespace RunAndGun.Space
                 }
                 else
                 {
-                    GameManager.Instance.UpdateGameState(GameState.PlayerDead);
                     playerDead = false;
+                    GameManager.Instance.GoToEndScene();
                 }
             }
         }
