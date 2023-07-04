@@ -4977,6 +4977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie_Type_B
       objectReference: {fileID: 0}
+    - target: {fileID: 138735819437174185, guid: 3c4da698f0e11084eae2cd820a12708f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 767639241640163091, guid: 3c4da698f0e11084eae2cd820a12708f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5484,7 +5488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &195776510
 Transform:
   m_ObjectHideFlags: 0
@@ -6238,7 +6242,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh103458
+  m_Name: pb_Mesh268208
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12336,7 +12340,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1020838535}
         m_TargetAssemblyTypeName: RunAndGun.Space.GameManager, Assembly-CSharp
-        m_MethodName: GoToEndScene
+        m_MethodName: LevelVictory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13276,6 +13280,10 @@ PrefabInstance:
     - target: {fileID: 2335491197094569507, guid: 9d1a6a8486c7e42448462c8dda24f190, type: 3}
       propertyPath: m_Name
       value: Zombie_Type_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 2335491197094569507, guid: 9d1a6a8486c7e42448462c8dda24f190, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3108192318812847257, guid: 9d1a6a8486c7e42448462c8dda24f190, type: 3}
       propertyPath: m_RootOrder
@@ -15203,6 +15211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie_Type_Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 142283544260630508, guid: 5ac56d720abceb04aaeb06b8c3bf433a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 770870409728462166, guid: 5ac56d720abceb04aaeb06b8c3bf433a, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -16419,7 +16431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1253331570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17432,7 +17444,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh103074
+  m_Name: pb_Mesh267806
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

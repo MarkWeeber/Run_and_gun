@@ -38,7 +38,6 @@ namespace RunAndGun.Space
 
         // necessary components for other classes
         public Transform playerTransform;
-        public List<Transform> Enemies { get { return enemies; } set { CheckIfAllEnemiesKilled(value); } }
         private List<Transform> enemies = new List<Transform>();
 
         // reference to selected enemy
@@ -47,11 +46,11 @@ namespace RunAndGun.Space
         private void Awake()
         {
             Instance = this;
-            GlobalBuffer.Reset();
         }
 
         private void Start()
         {
+            GlobalBuffer.Reset();
             EnemyHealthBar_UI = GameObject.FindObjectOfType<EnemyHealthBar_UI>();
             UpdateGameState(StartingState);
         }
@@ -74,9 +73,12 @@ namespace RunAndGun.Space
                     Cursor.visible = true;
                     GlobalBuffer.CalculateTimeSpent();
                     GlobalBuffer.failed = true;
+                    GoToEndScene();
                     break;
                 case GameState.LevelVictory:
-                    Cursor.visible = false;
+                    Cursor.visible = true;
+                    GlobalBuffer.CalculateTimeSpent();
+                    GoToEndScene();
                     break;
                 case GameState.LevelGameOver:
                     Cursor.visible = false;
@@ -134,9 +136,14 @@ namespace RunAndGun.Space
             Instance.OnHealthPointsUpdated?.Invoke();
         }
 
-        public void GoToEndScene()
+        private void GoToEndScene()
         {
             SceneManager.LoadScene(2);
+        }
+
+        public void LevelVictory()
+        {
+            Instance.UpdateGameState(GameState.LevelVictory);
         }
 
         public void AnnounceText(string text)
@@ -144,19 +151,18 @@ namespace RunAndGun.Space
             Instance.OnAnnounce?.Invoke(text);
         }
 
-        private void CheckIfAllEnemiesKilled(List<Transform> value)
+        public void AddEnemy(Transform enemy)
         {
-            Debug.Log("CHECKING");
-            if (!value.Any())
+            enemies.Add(enemy);
+        }
+
+        public void RemoveEnemy(Transform enemy)
+        {
+            enemies.Remove(enemy);
+            if (!enemies.Any())
             {
                 OnAllEnemiesKilled?.Invoke();
-                Debug.Log("ALL ENEMIES KILLED");
             }
-            else
-            {
-                Debug.Log("NOT ALL ENEMIES KILLED");
-            }
-            enemies = value;
         }
     }
 }

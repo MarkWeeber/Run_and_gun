@@ -30,7 +30,7 @@ namespace RunAndGun.Space
         {
             _rigidbody = GetComponent<Rigidbody>();
             animator = GetComponentInChildren<Animator>();
-            GameManager.Instance.Enemies.Add(this.transform);
+            GameManager.Instance.AddEnemy(this.transform);
         }
 
         public void UpdateSpotState(EnemySpotState enemySpotState)
@@ -48,7 +48,7 @@ namespace RunAndGun.Space
             OnDeath?.Invoke();
             GlobalBuffer.gamePoints.EnemiesKilled += 1;
             this.gameObject.layer = LayerMask.NameToLayer(GlobalStringVars.PLAYER_PHASE_THROUGH_LAYER);
-            GameManager.Instance.Enemies.Remove(this.transform);
+            GameManager.Instance.RemoveEnemy(this.transform);
         }
     }
 }

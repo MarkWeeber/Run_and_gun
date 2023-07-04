@@ -11,6 +11,7 @@ namespace RunAndGun.Space
             {
                 GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
             }
+            Cursor.visible = true;
         }
 
         public void PauseGameButtonPress()
