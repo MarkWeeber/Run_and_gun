@@ -287,7 +287,19 @@ MonoBehaviour:
   m_Value: 0.8
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2636299144685982472}
+        m_TargetAssemblyTypeName: RunAndGun.Space.MainMenu, Assembly-CSharp
+        m_MethodName: UpdateSoundsVolumeSlider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &950588906834825271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,6 +1681,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb8dab49379b042a8b1e6fe64554a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicVolumeSlider: {fileID: 7903600795939416529}
+  SoundsVolumeSlider: {fileID: 3925589046972184439}
+  MusicSource: []
+  AudioEffectsSource: []
 --- !u!1 &2636299144755423383
 GameObject:
   m_ObjectHideFlags: 0
@@ -6667,7 +6683,19 @@ MonoBehaviour:
   m_Value: 0.8
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2636299144685982472}
+        m_TargetAssemblyTypeName: RunAndGun.Space.MainMenu, Assembly-CSharp
+        m_MethodName: UpdateMusicVolumeSlider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8684979565730261765
 GameObject:
   m_ObjectHideFlags: 0

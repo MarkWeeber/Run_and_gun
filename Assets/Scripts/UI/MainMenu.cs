@@ -1,10 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace RunAndGun.Space
 {
     public class MainMenu : MonoBehaviour
     {
+        [SerializeField] private Slider MusicVolumeSlider;
+        [SerializeField] private Slider SoundsVolumeSlider;
+        public List<AudioSource> MusicSource;
+        public List<AudioSource> AudioEffectsSource;
         private void Awake()
         {
             if (GameManager.Instance != null)
@@ -83,5 +89,20 @@ namespace RunAndGun.Space
             Application.Quit();
         }
 
+        public void UpdateMusicVolumeSlider()
+        {
+            foreach (AudioSource item in MusicSource)
+            {
+                item.volume = MusicVolumeSlider.value;
+            }
+        }
+
+        public void UpdateSoundsVolumeSlider()
+        {
+            foreach (AudioSource item in AudioEffectsSource)
+            {
+                item.volume = SoundsVolumeSlider.value;
+            }
+        }
     }
 }

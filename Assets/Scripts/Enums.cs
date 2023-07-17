@@ -37,4 +37,10 @@ namespace RunAndGun.Space
         AlertedOnTarget,
         TargetLost
     }
+
+    public enum AudioType
+    {
+        SoundEffectType,
+        MusicType,
+    }
 }
