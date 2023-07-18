@@ -8,6 +8,7 @@ namespace RunAndGun.Space
         [SerializeField] private AudioType audioType = AudioType.SoundEffectType;
         [SerializeField] private float StartTime = 0f;
         [SerializeField] private float EndTime = 1f;
+        [SerializeField] private bool loopForMusic = false;
         private MainMenu mainMenuReference;
         private AudioSource audioSource;
         public float Volume { get { return audioSource.volume; } set { SetVolume(value); } }
@@ -31,7 +32,14 @@ namespace RunAndGun.Space
             {
                 if (audioSource.time > EndTime)
                 {
-                    audioSource.Stop();
+                    if (loopForMusic)
+                    {
+                        Play();
+                    }
+                    else
+                    {
+                        audioSource.Stop();
+                    }
                 }
             }
         }

@@ -19086,8 +19086,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioType: 1
-  StartTime: 0
-  EndTime: 82
+  StartTime: 14
+  EndTime: 80
+  loopForMusic: 0
 --- !u!82 &1880950020
 AudioSource:
   m_ObjectHideFlags: 0
