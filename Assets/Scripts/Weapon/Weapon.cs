@@ -11,7 +11,7 @@ namespace RunAndGun.Space
         [SerializeField] private float bulletSpeed = 300f;
         [SerializeField] private float fireRateInSeconds = 0.2f;
         [SerializeField] private float reloadSpeed = 1f;
-        [SerializeField] private AudioSource ShootAudio;
+        [SerializeField] private AudioSourceElement ShootAudio;
         private RecoilControl recoilControl;
         private Transform[] ammo;
         private SimpleBullet[] bulletRefernce;

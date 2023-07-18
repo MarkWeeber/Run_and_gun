@@ -6,19 +6,33 @@ namespace RunAndGun.Space
     public class AudioSourceElement : MonoBehaviour
     {
         [SerializeField] private AudioType audioType = AudioType.SoundEffectType;
+        [SerializeField] private float StartTime = 0f;
+        [SerializeField] private float EndTime = 1f;
         private MainMenu mainMenuReference;
         private AudioSource audioSource;
+        public float Volume { get { return audioSource.volume; } set { SetVolume(value); } }
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
             mainMenuReference = FindObjectOfType<MainMenu>();
             if (audioType == AudioType.SoundEffectType)
             {
-                mainMenuReference.AudioEffectsSource.Add(audioSource);
+                mainMenuReference.AudioEffectsSource.Add(this);
             }
             else if (audioType == AudioType.MusicType)
             {
-                mainMenuReference.MusicSource.Add(audioSource);
+                mainMenuReference.MusicSource.Add(this);
+            }
+        }
+
+        private void Update()
+        {
+            if (audioSource.isPlaying)
+            {
+                if (audioSource.time > EndTime)
+                {
+                    audioSource.Stop();
+                }
             }
         }
 
@@ -26,12 +40,36 @@ namespace RunAndGun.Space
         {
             if (audioType == AudioType.SoundEffectType)
             {
-                mainMenuReference.AudioEffectsSource.Remove(audioSource);
+                mainMenuReference.AudioEffectsSource.Remove(this);
             }
             else if (audioType == AudioType.MusicType)
             {
-                mainMenuReference.MusicSource.Remove(audioSource);
+                mainMenuReference.MusicSource.Remove(this);
             }
+        }
+
+        public void Play()
+        {
+            if (StartTime < audioSource.clip.length)
+            {
+                audioSource.time = StartTime;
+            }
+            audioSource.Play();
+        }
+
+        public void Pause()
+        {
+            audioSource.Pause();
+        }
+
+        public void Unpause()
+        {
+            audioSource.UnPause();
+        }
+
+        private void SetVolume(float volume)
+        {
+            audioSource.volume = volume;
         }
 
     }

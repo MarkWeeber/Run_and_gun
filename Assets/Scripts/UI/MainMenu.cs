@@ -9,8 +9,8 @@ namespace RunAndGun.Space
     {
         [SerializeField] private Slider MusicVolumeSlider;
         [SerializeField] private Slider SoundsVolumeSlider;
-        public List<AudioSource> MusicSource;
-        public List<AudioSource> AudioEffectsSource;
+        public List<AudioSourceElement> MusicSource;
+        public List<AudioSourceElement> AudioEffectsSource;
         private void Awake()
         {
             if (GameManager.Instance != null)
@@ -54,9 +54,11 @@ namespace RunAndGun.Space
                     break;
                 case GameState.InGamePaused:
                     PauseGame();
+                    PauseAllSounds();
                     break;
                 case GameState.InGameActive:
                     ResumeGame();
+                    ResumeAllSounds();
                     break;
                 case GameState.PlayerDead:
 
@@ -78,9 +80,25 @@ namespace RunAndGun.Space
 
         private void ResumeGame()
         {
-            if(GameManager.Instance.State != GameState.PlayerDead || GameManager.Instance.State != GameState.LevelGameOver || GameManager.Instance.State != GameState.LevelVictory)
+            if (GameManager.Instance.State != GameState.PlayerDead || GameManager.Instance.State != GameState.LevelGameOver || GameManager.Instance.State != GameState.LevelVictory)
             {
-                Time.timeScale = 1f;    
+                Time.timeScale = 1f;
+            }
+        }
+
+        private void PauseAllSounds()
+        {
+            foreach (AudioSourceElement item in AudioEffectsSource)
+            {
+                item.Pause();
+            }
+        }
+
+        private void ResumeAllSounds()
+        {
+            foreach (AudioSourceElement item in AudioEffectsSource)
+            {
+                item.Unpause();
             }
         }
 
@@ -91,17 +109,17 @@ namespace RunAndGun.Space
 
         public void UpdateMusicVolumeSlider()
         {
-            foreach (AudioSource item in MusicSource)
+            foreach (AudioSourceElement item in MusicSource)
             {
-                item.volume = MusicVolumeSlider.value;
+                item.Volume = MusicVolumeSlider.value;
             }
         }
 
         public void UpdateSoundsVolumeSlider()
         {
-            foreach (AudioSource item in AudioEffectsSource)
+            foreach (AudioSourceElement item in AudioEffectsSource)
             {
-                item.volume = SoundsVolumeSlider.value;
+                item.Volume = SoundsVolumeSlider.value;
             }
         }
     }
