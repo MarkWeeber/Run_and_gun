@@ -18,6 +18,15 @@ namespace RunAndGun.Space
                 GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
             }
             Cursor.visible = true;
+            
+        }
+
+        private void Start()
+        {
+            MusicVolumeSlider.value = GlobalBuffer.MusicVolume;
+            UpdateMusicVolumeSlider();
+            SoundsVolumeSlider.value = GlobalBuffer.SoundVolume;
+            UpdateSoundsVolumeSlider();
         }
 
         public void PauseGameButtonPress()
@@ -109,6 +118,7 @@ namespace RunAndGun.Space
 
         public void UpdateMusicVolumeSlider()
         {
+            GlobalBuffer.MusicVolume = MusicVolumeSlider.value;
             foreach (AudioSourceElement item in MusicSource)
             {
                 item.Volume = MusicVolumeSlider.value;
@@ -117,6 +127,7 @@ namespace RunAndGun.Space
 
         public void UpdateSoundsVolumeSlider()
         {
+            GlobalBuffer.SoundVolume = SoundsVolumeSlider.value;
             foreach (AudioSourceElement item in AudioEffectsSource)
             {
                 item.Volume = SoundsVolumeSlider.value;

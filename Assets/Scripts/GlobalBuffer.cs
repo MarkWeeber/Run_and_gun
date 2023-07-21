@@ -8,6 +8,8 @@ namespace RunAndGun.Space
         public static GamePoints gamePoints;
         public static TimeSpan TimeSpent;
         public static bool failed;
+        public static float SoundVolume = 1f;
+        public static float MusicVolume = 1f;
         private static DateTime timer;
         public static void Reset()
         {
